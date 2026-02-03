@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "moresearchbars",
+  "version": "${version}",
+  "name": "More Search Bars",
+  "description": "Add more search bars to various screens",
+  "authors": [
+    "CoolAid48"
+  ],
+  "contact": {
+    "homepage": "https://coolaid.live/"
+  },
+  "license": "MIT",
+  "icon": "assets/moresearchbars/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "coolaid.moresearchbars.fabric.MoreSearchBarsFabric"
+    ],
+    "client": [
+      "coolaid.moresearchbars.fabric.client.MoreSearchBarsFabricClient"
+    ]
+  },
+  "mixins": [
+    "moresearchbars.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.18.0",
+    "minecraft": "~1.21.11",
+    "java": ">=21",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}

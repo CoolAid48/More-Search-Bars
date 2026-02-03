@@ -1,0 +1,32 @@
+modLoader = "javafml"
+loaderVersion = "[2,)"
+#issueTrackerURL = ""
+license = "MIT"
+
+[[mods]]
+modId = "moresearchbars"
+version = "${version}"
+displayName = "More Search Bars"
+authors = "CoolAid48"
+description = '''
+Add more search bars to various screens
+'''
+#logoFile = ""
+
+[[dependencies.moresearchbars]]
+modId = "neoforge"
+type = "required"
+versionRange = "[21,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.moresearchbars]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.21.11,)"
+ordering = "NONE"
+side = "BOTH"
+
+
+[[mixins]]
+config = "moresearchbars.mixins.json"

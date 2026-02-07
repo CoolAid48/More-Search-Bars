@@ -2,10 +2,40 @@ architectury {
     common rootProject.enabled_platforms.split(',')
 }
 
+repositories {
+    mavenCentral()
+    mavenLocal()
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "Sponge"
+                url = uri("https://repo.spongepowered.org/repository/maven-public")
+            }
+        }
+        filter {
+            includeGroupAndSubgroups("org.spongepowered")
+        }
+    }
+}
+
 dependencies {
     // We depend on Fabric Loader here to use the Fabric @Environment annotations,
     // which get remapped to the correct annotations on each platform.
     // Do NOT use other classes from Fabric Loader.
     modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
 
+    // Mixin stuff
+    compileOnly("org.spongepowered:mixin:${mixin_version}")
+    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:${mixinextras_version}"))
+}
+
+loom {
+    def aw = file("src/main/resources/moresearchbars.accesswidener")
+    if (aw.exists()) accessWidenerPath.set(aw)
+    if (aw.exists()) {
+        validateAccessWidener { accessWidener = aw }
+        afterEvaluate {
+            validateAccessWidener.run()
+        }
+    }
 }

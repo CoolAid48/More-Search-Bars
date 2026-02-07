@@ -4,8 +4,18 @@
   "compatibilityLevel": "JAVA_21",
   "minVersion": "0.8",
   "client": [
-  ],
-  "mixins": [
+    "multiplayer.JoinMultiplayerScreenMixin",
+    "multiplayer.ServerSelectionListMixin",
+    "multiplayer.ServerSelectionListEntryMixin",
+    "stats.StatsScreenMixin",
+    "stats.GeneralStatisticsListMixin",
+    "stats.ItemStatisticsListMixin",
+    "stats.MobsStatisticsListMixin",
+    "stats.GeneralStatisticsListEntryMixin",
+    "stats.ItemStatisticsListHeaderEntryMixin",
+    "stats.ItemStatisticsListItemRowMixin",
+    "stats.MobsStatisticsListMobRowMixin",
+    "TabNavigationBarMixin"
   ],
   "injectors": {
     "defaultRequire": 1

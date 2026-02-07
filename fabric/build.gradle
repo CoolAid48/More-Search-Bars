@@ -24,6 +24,23 @@ configurations {
     }
 }
 
+repositories {
+    mavenCentral()
+    mavenLocal()
+    exclusiveContent {
+        forRepository {
+            //noinspection ForeignDelegate
+            maven {
+                name = "Sponge"
+                url = uri("https://repo.spongepowered.org/repository/maven-public")
+            }
+        }
+        filter {
+            includeGroupAndSubgroups("org.spongepowered")
+        }
+    }
+}
+
 dependencies {
     modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
 
@@ -34,19 +51,33 @@ dependencies {
     shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
 }
 
-processResources {
-    inputs.property 'version', project.version
-
-    filesMatching('fabric.mod.json') {
-        expand version: project.version
+loom {
+    def aw = project(":common").file("src/main/resources/moresearchbars.accesswidener")
+    if (aw.exists()) accessWidenerPath.set(aw)
+    if (aw.exists()) {
+        validateAccessWidener { accessWidener = aw }
+        afterEvaluate {
+            validateAccessWidener.run()
+        }
     }
-}
+    mixin {
+        defaultRefmapName.set("moresearchbars.refmap.json")
+    }
 
-shadowJar {
-    configurations = [project.configurations.shadowBundle]
-    archiveClassifier = 'dev-shadow'
-}
+    processResources {
+        inputs.property 'version', project.version
 
-remapJar {
-    input.set shadowJar.archiveFile
+        filesMatching('fabric.mod.json') {
+            expand version: project.version
+        }
+    }
+
+    shadowJar {
+        configurations = [project.configurations.shadowBundle]
+        archiveClassifier = 'dev-shadow'
+    }
+
+    remapJar {
+        input.set shadowJar.archiveFile
+    }
 }

@@ -1,0 +1,6 @@
+accessWidener v2 named
+# https://wiki.fabricmc.net/tutorial:accesswidening
+accessible class net/minecraft/client/gui/screens/achievement/StatsScreen$GeneralStatisticsList
+accessible class net/minecraft/client/gui/screens/achievement/StatsScreen$ItemStatisticsList
+accessible class net/minecraft/client/gui/screens/achievement/StatsScreen$MobsStatisticsList
+accessible class net/minecraft/client/gui/components/AbstractSelectionList$Entry

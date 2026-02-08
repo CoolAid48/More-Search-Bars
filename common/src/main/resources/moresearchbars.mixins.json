@@ -4,6 +4,8 @@
   "compatibilityLevel": "JAVA_21",
   "minVersion": "0.8",
   "client": [
+    "gamerules.GameRuleListMixin",
+    "gamerules.EditGameRulesScreenMixin",
     "multiplayer.JoinMultiplayerScreenMixin",
     "multiplayer.ServerSelectionListMixin",
     "multiplayer.ServerSelectionListEntryMixin",

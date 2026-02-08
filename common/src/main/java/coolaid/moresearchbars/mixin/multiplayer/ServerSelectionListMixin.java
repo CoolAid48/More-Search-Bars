@@ -46,6 +46,7 @@ public abstract class ServerSelectionListMixin extends AbstractSelectionList<Ser
         for (ServerSelectionList.Entry entry : moresearchbars$allEntries) {
             if (query.isEmpty()) {
                 this.addEntry(entry);
+                this.setScrollAmount(0);
                 continue;
             }
 
@@ -57,9 +58,11 @@ public abstract class ServerSelectionListMixin extends AbstractSelectionList<Ser
                     if (matches) this.addEntry(entry);
                 }
             } else {
-
                 this.addEntry(entry); // Keeps LAN servers and status visible
             }
         }
+
+        // Add this line: Reset scroll to top after filtering
+        this.setScrollAmount(0);
     }
 }

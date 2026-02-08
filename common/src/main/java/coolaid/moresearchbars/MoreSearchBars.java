@@ -1,5 +1,8 @@
 package coolaid.moresearchbars;
 
+import coolaid.moresearchbars.config.SearchBarConfig;
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,18 +12,25 @@ public class MoreSearchBars {
 
     public static final String MOD_ID = "moresearchbars";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+    public static SearchBarConfig CONFIG;
+
     private static String statsSearchString = "";
     private static String serverSearchString = "";
-
-    public static void init() {
-        // Write common init code here.
-
-        LOGGER.info("Initializing More Search Bars!");
-    }
+    private static String gameRuleSearchString = "";
 
     public static int selectedTab;
     public static boolean isSearchingServers = false;
 
+    public static void init() {
+        // Write common init code here.
+
+        AutoConfig.register(SearchBarConfig.class, GsonConfigSerializer::new);
+        CONFIG = AutoConfig.getConfigHolder(SearchBarConfig.class).getConfig();
+
+        LOGGER.info("Initializing More Search Bars!");
+    }
+
+    // Stats search methods
     public static void setStatsSearchString(String s) {
         statsSearchString = s.toLowerCase(Locale.ROOT);
     }
@@ -38,7 +48,12 @@ public class MoreSearchBars {
         serverSearchString = search;
     }
 
-    public static void clearServerSearch() {
-        serverSearchString = "";
+    // GameRule search methods
+    public static String getGameRuleSearchString() {
+        return gameRuleSearchString;
+    }
+
+    public static void setGameRuleSearchString(String text) {
+        gameRuleSearchString = text;
     }
 }

@@ -4,3 +4,4 @@ accessible class net/minecraft/client/gui/screens/achievement/StatsScreen$Genera
 accessible class net/minecraft/client/gui/screens/achievement/StatsScreen$ItemStatisticsList
 accessible class net/minecraft/client/gui/screens/achievement/StatsScreen$MobsStatisticsList
 accessible class net/minecraft/client/gui/components/AbstractSelectionList$Entry
+accessible method net/minecraft/client/gui/components/AbstractSelectionList clearEntries ()V

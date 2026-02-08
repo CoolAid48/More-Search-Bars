@@ -45,11 +45,13 @@ public abstract class StatsScreenMixin extends Screen {
     }
 
     // Clears the search query on screen init.
-    @Inject(
-            method = "init",
-            at = @At("RETURN")
-    )
-    private void afterInit(CallbackInfo ci) {
+    @Inject(method = "init", at = @At("RETURN"))
+    private void onInit(CallbackInfo ci) {
+
+        if (!MoreSearchBars.CONFIG.enableStatsSearch) {
+            return;
+        }
+
         MoreSearchBars.setStatsSearchString("");
     }
 

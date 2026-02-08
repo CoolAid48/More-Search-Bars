@@ -29,6 +29,11 @@ public abstract class JoinMultiplayerScreenMixin extends Screen {
 
     @Inject(method = "init", at = @At("TAIL"))
     private void onInit(CallbackInfo ci) {
+
+        if (!MoreSearchBars.CONFIG.enableMultiplayerSearch) {
+            return;
+        }
+
         int boxWidth = 200;
         int boxHeight = 20;
         int x = (this.width - boxWidth) / 2;
@@ -53,6 +58,7 @@ public abstract class JoinMultiplayerScreenMixin extends Screen {
 
         if (servers != null && serverSelectionList != null) {
             serverSelectionList.updateOnlineServers(servers);
+            serverSelectionList.setScrollAmount(0);
         }
     }
 
@@ -65,6 +71,9 @@ public abstract class JoinMultiplayerScreenMixin extends Screen {
         int listY = moresearchbars$serverSearchField.getY() + moresearchbars$serverSearchField.getHeight() + gap;
         serverSelectionList.setPosition(serverSelectionList.getX(), listY);
         serverSelectionList.setHeight(this.height - listY - bottomPadding);
+
+        // Reset scroll when repositioning, again
+        serverSelectionList.setScrollAmount(0);
     }
 
     @Unique
@@ -73,6 +82,8 @@ public abstract class JoinMultiplayerScreenMixin extends Screen {
 
         MoreSearchBars.setServerSearchString(text);
         ((ServerSelectionListMixinInvoker)serverSelectionList).moresearchbars$applyFilter();
+
+        // And again just in case
         serverSelectionList.setScrollAmount(0);
     }
 

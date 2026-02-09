@@ -17,5 +17,5 @@ public class SearchBarConfig implements ConfigData {
     public boolean enableStatsSearch = true;
 
     @ConfigEntry.Gui.Tooltip
-    public boolean enableKeybindSearch = true;
+    public boolean enableKeybindsSearch = true;
 }

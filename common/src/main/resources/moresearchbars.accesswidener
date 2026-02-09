@@ -5,3 +5,4 @@ accessible class net/minecraft/client/gui/screens/achievement/StatsScreen$ItemSt
 accessible class net/minecraft/client/gui/screens/achievement/StatsScreen$MobsStatisticsList
 accessible class net/minecraft/client/gui/components/AbstractSelectionList$Entry
 accessible method net/minecraft/client/gui/components/AbstractSelectionList clearEntries ()V
+extendable method  net/minecraft/client/gui/screens/options/controls/KeyBindsList$Entry refreshEntry ()V

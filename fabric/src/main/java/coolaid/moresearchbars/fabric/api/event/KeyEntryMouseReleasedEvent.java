@@ -1,0 +1,46 @@
+package coolaid.moresearchbars.fabric.api.event;
+
+import coolaid.moresearchbars.api.entries.IKeyEntry;
+import coolaid.moresearchbars.api.events.IKeyEntryMouseReleasedEvent;
+import net.minecraft.client.input.MouseButtonEvent;
+
+/**
+ * KeyEntryMouseReleasedEvent is called at the start of {@link IKeyEntry#mouseReleased(MouseButtonEvent)}.
+ * <p>
+ * If you are consuming this event, call {@link KeyEntryMouseReleasedEvent#setHandled(boolean)} with a value of {@code true}.
+ */
+public class KeyEntryMouseReleasedEvent implements IKeyEntryMouseReleasedEvent {
+
+    private final IKeyEntry entry;
+    private final MouseButtonEvent event;
+
+    private boolean handled;
+
+    public KeyEntryMouseReleasedEvent(IKeyEntry entry, MouseButtonEvent event) {
+
+        this.entry = entry;
+        this.event = event;
+    }
+
+    public IKeyEntry getEntry() {
+
+        return entry;
+    }
+
+    @Override
+    public MouseButtonEvent event() {
+
+        return event;
+    }
+
+    public boolean isHandled() {
+
+        return handled;
+    }
+
+    public void setHandled(boolean handled) {
+
+        this.handled = handled;
+    }
+
+}

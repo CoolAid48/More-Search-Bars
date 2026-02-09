@@ -17,6 +17,7 @@ public class MoreSearchBars {
     private static String statsSearchString = "";
     private static String serverSearchString = "";
     private static String gameRuleSearchString = "";
+    private static String keybindSearchString = "";
 
     public static int selectedTab;
     public static boolean isSearchingServers = false;
@@ -55,5 +56,14 @@ public class MoreSearchBars {
 
     public static void setGameRuleSearchString(String text) {
         gameRuleSearchString = text;
+    }
+
+    // Keybind search methods
+    public static String getKeybindSearchString() {
+        return keybindSearchString;
+    }
+
+    public static void setKeybindSearchString(String text) {
+        keybindSearchString = text;
     }
 }

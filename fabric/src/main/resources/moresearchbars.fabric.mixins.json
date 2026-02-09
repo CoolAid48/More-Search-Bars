@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "coolaid.moresearchbars.fabric.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "minVersion": "0.8",
+  "client": [
+    "OpenGuiMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -17,5 +17,4 @@ public class Services {
         MoreSearchBars.LOGGER.debug("Loaded {} for service {}", loadedService, classssss);
         return loadedService;
     }
-
 }

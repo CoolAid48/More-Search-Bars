@@ -1,0 +1,53 @@
+package coolaid.moresearchbars.neoforge.keybindsAPI.event;
+
+import coolaid.moresearchbars.keybindsAPI.entries.IKeyEntry;
+import coolaid.moresearchbars.keybindsAPI.events.IKeyEntryMouseClickedEvent;
+import net.minecraft.client.input.MouseButtonEvent;
+import net.neoforged.bus.api.Event;
+
+
+/**
+ * KeyEntryMouseClickedEvent is called at the start of {@link IKeyEntry#mouseClicked(MouseButtonEvent, boolean)}.
+ * <p>
+ * If you are consuming this event, call {@link KeyEntryMouseClickedEvent#setHandled(boolean)} with a value of {@code true}.
+ */
+public class KeyEntryMouseClickedEvent extends Event implements IKeyEntryMouseClickedEvent {
+
+    private final IKeyEntry entry;
+    private final MouseButtonEvent event;
+    private final boolean doubleClick;
+    private boolean handled;
+
+    public KeyEntryMouseClickedEvent(IKeyEntry entry, MouseButtonEvent event, boolean doubleClick) {
+
+        this.entry = entry;
+        this.event = event;
+        this.doubleClick = doubleClick;
+    }
+
+    public IKeyEntry getEntry() {
+
+        return entry;
+    }
+
+    public MouseButtonEvent event() {
+
+        return event;
+    }
+
+    public boolean doubleClick() {
+
+        return doubleClick;
+    }
+
+    public boolean isHandled() {
+
+        return handled;
+    }
+
+    public void setHandled(boolean handled) {
+
+        this.handled = handled;
+    }
+
+}

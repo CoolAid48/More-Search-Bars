@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "coolaid.moresearchbars.neoforge.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "minVersion": "0.8",
+  "client": [
+    "AccessKeyBindsScreenNeoForge"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

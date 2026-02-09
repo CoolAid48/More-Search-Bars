@@ -12,13 +12,34 @@
 package coolaid.moresearchbars.neoforge;
 
 import coolaid.moresearchbars.MoreSearchBars;
+import coolaid.moresearchbars.config.SearchBarConfig;
+import coolaid.moresearchbars.neoforge.keybindsAPI.event.ClientEventHandler;
+import me.shedaniel.autoconfig.AutoConfig;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
+import net.neoforged.neoforge.common.NeoForge;
 
 @Mod(MoreSearchBars.MOD_ID)
 public final class MoreSearchBarsNeoForge {
-    public MoreSearchBarsNeoForge() {
+    public MoreSearchBarsNeoForge(IEventBus modEventBus) {
+
+        modEventBus.addListener(this::init);
+
+        // Auto-Config for NeoForge's built-in mods menu
+        ModLoadingContext.get().registerExtensionPoint(
+                IConfigScreenFactory.class,
+                () -> (modContainer, parentScreen) -> AutoConfig.getConfigScreen(SearchBarConfig.class, parentScreen).get()
+        );
 
         // Run our common setup.
         MoreSearchBars.init();
+    }
+
+    private void init(final FMLClientSetupEvent event) {
+
+        NeoForge.EVENT_BUS.register(new ClientEventHandler());
     }
 }

@@ -1,3 +1,14 @@
+/*
+ * DISCLAIMER & ATTRIBUTION
+ *
+ * This mod heavily adapts and modifies code and behavior from jaredlll08's "Controlling" mod,
+ * which is under the MIT License.
+ *
+ * Original copyright and license notices are preserved where applicable.
+ * This project is not affiliated with or endorsed by the original authors
+ * All modifications are the responsibility of this project.
+ */
+
 package coolaid.moresearchbars;
 
 import coolaid.moresearchbars.config.SearchBarConfig;
@@ -17,7 +28,6 @@ public class MoreSearchBars {
     private static String statsSearchString = "";
     private static String serverSearchString = "";
     private static String gameRuleSearchString = "";
-    private static String keybindSearchString = "";
 
     public static int selectedTab;
     public static boolean isSearchingServers = false;
@@ -58,12 +68,5 @@ public class MoreSearchBars {
         gameRuleSearchString = text;
     }
 
-    // Keybind search methods
-    public static String getKeybindSearchString() {
-        return keybindSearchString;
-    }
-
-    public static void setKeybindSearchString(String text) {
-        keybindSearchString = text;
-    }
+    // Keybind search methods are handled elsewhere
 }

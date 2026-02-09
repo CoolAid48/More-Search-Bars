@@ -52,7 +52,8 @@ public abstract class EditGameRulesScreenMixin extends Screen {
     @Inject(method = "init", at = @At("TAIL"))
     private void onInit(CallbackInfo ci) {
 
-        if (!MoreSearchBars.CONFIG.enableGameruleSearch) {
+        // Simple Config Toggle
+        if (!MoreSearchBars.CONFIG.enableGameRuleSearch) {
             return;
         }
 

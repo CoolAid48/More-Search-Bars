@@ -44,14 +44,16 @@ public abstract class StatsScreenMixin extends Screen {
         super(text);
     }
 
+    @Unique
+    private boolean isStatsSearchEnabled() {
+        return MoreSearchBars.CONFIG == null || MoreSearchBars.CONFIG.enableStatsSearch;
+    }
+
     // Clears the search query on screen init.
     @Inject(method = "init", at = @At("RETURN"))
     private void onInit(CallbackInfo ci) {
 
-        if (!MoreSearchBars.CONFIG.enableStatsSearch) {
-            return;
-        }
-
+        // Config toggle is handled in isStatsSearchEnabled()
         MoreSearchBars.setStatsSearchString("");
     }
 
@@ -66,6 +68,10 @@ public abstract class StatsScreenMixin extends Screen {
     private <T extends LayoutElement> T wrapAddDoneButton(
             HeaderAndFooterLayout instance, T child, Operation<T> original
     ) {
+        if (!isStatsSearchEnabled()) {
+            return original.call(instance, child);
+        }
+
         int height = 20;
         int fieldWidth = 120;
         moresearchbars$searchField = new EditBox(font, fieldWidth, height, Component.empty());
@@ -96,8 +102,7 @@ public abstract class StatsScreenMixin extends Screen {
     // Directs keyboard and mouse inputs into the search field.
     @Override
     public boolean keyPressed(KeyEvent event) {
-        if (moresearchbars$searchField != null
-                && moresearchbars$searchField.keyPressed(event)) {
+        if (isStatsSearchEnabled() && moresearchbars$searchField != null && moresearchbars$searchField.keyPressed(event)) {
             moresearchbars$refresh();
             return true;
         }
@@ -106,7 +111,7 @@ public abstract class StatsScreenMixin extends Screen {
 
     @Override
     public boolean charTyped(CharacterEvent event) {
-        if (moresearchbars$searchField.charTyped(event)) {
+        if (isStatsSearchEnabled() && moresearchbars$searchField.charTyped(event)) {
             moresearchbars$refresh();
             return true;
         }

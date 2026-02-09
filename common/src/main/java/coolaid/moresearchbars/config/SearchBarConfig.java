@@ -11,7 +11,7 @@ public class SearchBarConfig implements ConfigData {
     public boolean enableMultiplayerSearch = true;
 
     @ConfigEntry.Gui.Tooltip
-    public boolean enableGameruleSearch = true;
+    public boolean enableGameRuleSearch = true;
 
     @ConfigEntry.Gui.Tooltip
     public boolean enableStatsSearch = true;

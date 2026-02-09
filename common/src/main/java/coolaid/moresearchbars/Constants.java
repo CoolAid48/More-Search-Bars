@@ -1,53 +1,52 @@
 package coolaid.moresearchbars;
 
-import com.blamejared.searchables.api.SearchableComponent;
-import com.blamejared.searchables.api.SearchableType;
-import coolaid.moresearchbars.api.entries.ICategoryEntry;
-import coolaid.moresearchbars.api.entries.IInputEntry;
-import coolaid.moresearchbars.api.entries.IKeyEntry;
+import coolaid.moresearchbars.keybindsAPI.entries.ICategoryEntry;
+import coolaid.moresearchbars.keybindsAPI.entries.IInputEntry;
+import coolaid.moresearchbars.keybindsAPI.entries.IKeyEntry;
 import net.minecraft.client.gui.screens.options.controls.KeyBindsList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 
-import java.util.Optional;
+import java.util.Locale;
 
 public class Constants {
 
-    public static final MutableComponent COMPONENT_CONTROLS_RESET = Component.translatable("controls.reset");
-    public static final MutableComponent COMPONENT_CONTROLS_RESET_ALL = Component.translatable("controls.resetAll");
-    public static final MutableComponent COMPONENT_OPTIONS_CONFIRM_RESET = Component.translatable("options.confirmReset");
-    public static final MutableComponent COMPONENT_OPTIONS_SHOW_NONE = Component.translatable("options.showNone");
-    public static final MutableComponent COMPONENT_OPTIONS_SHOW_ALL = Component.translatable("options.showAll");
-    public static final MutableComponent COMPONENT_OPTIONS_SHOW_CONFLICTS = Component.translatable("options.showConflicts");
-    public static final MutableComponent COMPONENT_OPTIONS_SORT = Component.translatable("options.sort");
-    public static final MutableComponent COMPONENT_OPTIONS_TOGGLE_FREE = Component.translatable("options.toggleFree");
-    public static final MutableComponent COMPONENT_OPTIONS_AVAILABLE_KEYS = Component.translatable("options.availableKeys");
+    public static final MutableComponent COMPONENT_CONTROLS_RESET = Component.translatable("moresearchbars.controls.reset");
+    public static final MutableComponent COMPONENT_CONTROLS_RESET_ALL = Component.translatable("moresearchbars.controls.resetAll");
+    public static final MutableComponent COMPONENT_OPTIONS_CONFIRM_RESET = Component.translatable("moresearchbars.keybinds.confirmReset");
+    public static final MutableComponent COMPONENT_OPTIONS_SHOW_NONE = Component.translatable("moresearchbars.keybinds.showNone");
+    public static final MutableComponent COMPONENT_OPTIONS_SHOW_ALL = Component.translatable("moresearchbars.keybinds.showAll");
+    public static final MutableComponent COMPONENT_OPTIONS_SHOW_CONFLICTS = Component.translatable("moresearchbars.keybinds.showConflicts");
 
 
-    public static final SearchableType<KeyBindsList.Entry> SEARCHABLE_KEYBINDINGS = new SearchableType.Builder<KeyBindsList.Entry>()
-            .component(SearchableComponent.create("category", entry -> {
-                if(entry instanceof ICategoryEntry cat) {
-                    return Optional.of(cat.category().label().getString());
-                } else if(entry instanceof IKeyEntry key) {
-                    return Optional.of(key.categoryName().getString());
-                }
-                return Optional.empty();
-            }))
-            .component(SearchableComponent.create("key", entry -> {
-                if(entry instanceof IKeyEntry key && !key.getKey().isUnbound()) {
-                    return Optional.of(key.getKey().getTranslatedKeyMessage().getString());
-                }
-                return Optional.empty();
-            }))
-            .defaultComponent(SearchableComponent.create("name", entry -> {
-                if(entry instanceof IKeyEntry key) {
-                    return Optional.of(key.getKeyDesc().getString());
-                } else if(entry instanceof IInputEntry input) {
-                    return Optional.of(input.getInput().getName());
-                }
-                return Optional.empty();
-            }))
-            .build();
+    public static boolean matchesKeybindSearch(KeyBindsList.Entry entry, String searchText) {
+        if (searchText == null || searchText.isBlank()) {
+            return true;
+        }
+        String query = searchText.toLowerCase(Locale.ROOT);
+        if (entry instanceof ICategoryEntry cat) {
+            if (contains(cat.category().label().getString(), query)) {
+                return true;
+            }
+        }
+        if (entry instanceof IKeyEntry key) {
+            if (contains(key.categoryName().getString(), query)) {
+                return true;
+            }
+            if (!key.getKey().isUnbound() && contains(key.getKey().getTranslatedKeyMessage().getString(), query)) {
+                return true;
+            }
+            if (contains(key.getKeyDesc().getString(), query)) {
+                return true;
+            }
+        }
+        if (entry instanceof IInputEntry input) {
+            return contains(input.getInput().getName(), query);
+        }
+        return false;
+    }
 
-
+    private static boolean contains(String candidate, String query) {
+        return candidate != null && candidate.toLowerCase(Locale.ROOT).contains(query);
+    }
 }

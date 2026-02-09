@@ -30,6 +30,7 @@ public abstract class JoinMultiplayerScreenMixin extends Screen {
     @Inject(method = "init", at = @At("TAIL"))
     private void onInit(CallbackInfo ci) {
 
+        // Simple Config Toggle
         if (!MoreSearchBars.CONFIG.enableMultiplayerSearch) {
             return;
         }

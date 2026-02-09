@@ -24,8 +24,7 @@
     ]
   },
   "mixins": [
-    "moresearchbars.mixins.json",
-    "moresearchbars.fabric.mixins.json"
+    "moresearchbars.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.17.3",

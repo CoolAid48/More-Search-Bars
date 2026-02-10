@@ -42,23 +42,17 @@ public class NewKeyBindsScreen extends KeyBindsScreen {
     public NewKeyBindsScreen(Screen screen, Options settings) {
         super(screen, settings);
         this.layout.setHeaderHeight(48);
-        this.layout.setFooterHeight(84);
+        this.layout.setFooterHeight(54);
     }
 
     @Override
     protected void init() {
         super.init();
-        if (isSearchEnabled() && this.search != null) {
-            this.search.moveCursor(0, false);
-        }
+        this.search.moveCursor(0, false);
     }
 
     @Override
     protected void addTitle() {
-        if (!isSearchEnabled()) {
-            super.addTitle();
-            return;
-        }
         int searchX = 200;
         int centerX = this.width / 2;
         this.search = new EditBox(font, centerX - searchX / 2, 20, searchX, Button.DEFAULT_HEIGHT, Component.translatable("moresearchbars.editbox.search"));
@@ -97,9 +91,8 @@ public class NewKeyBindsScreen extends KeyBindsScreen {
         grid.rowSpacing(4);
         grid.columnSpacing(8);
 
-        // Manage the rows and add a buffer to push everything down. 2 columns wide and 24 pixels tall.
+        // Manage the rows; no spacer so the footer top lines up with the buttons.
         GridLayout.RowHelper rowHelper = grid.createRowHelper(2);
-        rowHelper.addChild(net.minecraft.client.gui.layouts.SpacerElement.height(24), 2);
 
         // 4 buttons (2 top and 2 bottom)
         rowHelper.addChild(this.buttonNone);

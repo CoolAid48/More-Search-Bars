@@ -35,7 +35,7 @@ import java.util.function.UnaryOperator;
 public class NewKeyBindsList extends CustomList {
 
     private static final int HEADER_HEIGHT = 48;
-    private static final int FOOTER_HEIGHT = 84;
+    private static final int FOOTER_HEIGHT = 54;
 
     private final KeyBindsScreen controlsScreen;
     private final Minecraft mc;

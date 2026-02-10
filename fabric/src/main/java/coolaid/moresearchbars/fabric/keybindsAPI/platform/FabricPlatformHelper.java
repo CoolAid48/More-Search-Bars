@@ -7,7 +7,15 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Options;
 
+import java.nio.file.Path;
+
 public class FabricPlatformHelper implements IPlatformHelper {
+
+    @Override
+    public Path getConfigDir() {
+
+        return FabricLoader.getInstance().getConfigDir();
+    }
 
     @Override
     public boolean hasConflictingModifier(KeyMapping keybinding, KeyMapping other) {

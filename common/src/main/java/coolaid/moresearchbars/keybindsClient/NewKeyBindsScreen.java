@@ -2,6 +2,7 @@ package coolaid.moresearchbars.keybindsClient;
 
 import com.google.common.base.Suppliers;
 import coolaid.moresearchbars.Constants;
+import coolaid.moresearchbars.MoreSearchBars;
 import coolaid.moresearchbars.keybindsAPI.DisplayMode;
 import coolaid.moresearchbars.mixin.keybinds.AccessKeyBindsScreen;
 import coolaid.moresearchbars.platform.Services;
@@ -47,15 +48,21 @@ public class NewKeyBindsScreen extends KeyBindsScreen {
     @Override
     protected void init() {
         super.init();
-        this.search.moveCursor(0, false);
+        if (isSearchEnabled() && this.search != null) {
+            this.search.moveCursor(0, false);
+        }
     }
 
     @Override
     protected void addTitle() {
+        if (!isSearchEnabled()) {
+            super.addTitle();
+            return;
+        }
         int searchX = 200;
         int centerX = this.width / 2;
-        this.search = new EditBox(font, centerX - searchX / 2, 20, searchX, Button.DEFAULT_HEIGHT, Component.translatable("Search..."));
-        this.search.setHint(Component.translatable("Search...").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
+        this.search = new EditBox(font, centerX - searchX / 2, 20, searchX, Button.DEFAULT_HEIGHT, Component.translatable("moresearchbars.editbox.search"));
+        this.search.setHint(Component.translatable("moresearchbars.editbox.search").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
         this.search.setResponder(this::filterKeys);
 
         LinearLayout header = this.layout.addToHeader(LinearLayout.vertical(), layoutSettings -> layoutSettings.paddingVertical(8));
@@ -121,6 +128,9 @@ public class NewKeyBindsScreen extends KeyBindsScreen {
     }
 
     public void filterKeys() {
+        if (search == null) {
+            return;
+        }
         filterKeys(search.getValue());
     }
 
@@ -160,6 +170,9 @@ public class NewKeyBindsScreen extends KeyBindsScreen {
 
     @Override
     public boolean keyPressed(KeyEvent event) {
+        if (search == null) {
+            return super.keyPressed(event);
+        }
         if (!search.isFocused() && this.selectedKey == null) {
             if (event.hasControlDown() && event.key() == GLFW.GLFW_KEY_F) {
                 search.setFocused(true);
@@ -175,9 +188,12 @@ public class NewKeyBindsScreen extends KeyBindsScreen {
         if (this.selectedKey != null) {
             Services.PLATFORM.handleKeyPress(this, this.options, event);
             return true;
-        } else {
-            return super.keyPressed(event);
         }
+        return super.keyPressed(event);
+    }
+
+    private boolean isSearchEnabled() {
+        return MoreSearchBars.CONFIG == null || MoreSearchBars.CONFIG.enableKeybindsSearch;
     }
 
     @Override

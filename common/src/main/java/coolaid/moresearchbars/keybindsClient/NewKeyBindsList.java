@@ -34,6 +34,9 @@ import java.util.function.UnaryOperator;
 
 public class NewKeyBindsList extends CustomList {
 
+    private static final int HEADER_HEIGHT = 48;
+    private static final int FOOTER_HEIGHT = 84;
+
     private final KeyBindsScreen controlsScreen;
     private final Minecraft mc;
     private int maxListLabelWidth;
@@ -41,8 +44,8 @@ public class NewKeyBindsList extends CustomList {
     public NewKeyBindsList(KeyBindsScreen controls, Minecraft mcIn) {
 
         super(controls, mcIn);
-        this.height -= 52;
-        this.setY(48);
+        this.setY(HEADER_HEIGHT);
+        this.setHeight(controls.height - HEADER_HEIGHT - FOOTER_HEIGHT);
         this.controlsScreen = controls;
         this.mc = mcIn;
         this.clearEntries();
@@ -83,7 +86,7 @@ public class NewKeyBindsList extends CustomList {
     @Override
     public int getBottom() {
 
-        return this.controlsScreen.height - 56;
+        return this.getY() + this.getHeight();
     }
 
     public class CategoryEntry extends Entry implements ICategoryEntry {

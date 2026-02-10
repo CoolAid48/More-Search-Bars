@@ -77,7 +77,7 @@ public abstract class StatsScreenMixin extends Screen {
         moresearchbars$searchField = new EditBox(font, fieldWidth, height, Component.empty());
         moresearchbars$searchField.setCanLoseFocus(false);
         moresearchbars$searchField.setFocused(true);
-        moresearchbars$searchField.setHint(Component.literal("Search Statistics..."));
+        moresearchbars$searchField.setHint(Component.translatable("moresearchbars.editbox.search"));
 
         LinearLayout layout = new LinearLayout(
                 width,

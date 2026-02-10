@@ -17,8 +17,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(EditGameRulesScreen.class)
 public abstract class EditGameRulesScreenMixin extends Screen {
 
-    @Shadow private EditGameRulesScreen.RuleList ruleList;
-    @Unique private EditBox moresearchbars$ruleSearchField;
+    @Shadow
+    private EditGameRulesScreen.RuleList ruleList;
+    @Unique
+    private EditBox moresearchbars$ruleSearchField;
 
     protected EditGameRulesScreenMixin(Component title) {
         super(title);
@@ -53,12 +55,12 @@ public abstract class EditGameRulesScreenMixin extends Screen {
     private void onInit(CallbackInfo ci) {
 
         // Simple Config Toggle
-        if (!MoreSearchBars.CONFIG.enableGameRuleSearch) {
+        if (MoreSearchBars.CONFIG == null || !MoreSearchBars.CONFIG.enableGameRuleSearch) {
             return;
         }
 
-        if (this.ruleList != null) {
-            ((GameRuleListMixinInvoker)this.ruleList).moresearchbars$captureEntries();
+        if (this.ruleList instanceof GameRuleListMixinInvoker invoker) {
+            invoker.moresearchbars$captureEntries();
         }
 
         this.moresearchbars$ruleSearchField = new EditBox(
@@ -69,7 +71,7 @@ public abstract class EditGameRulesScreenMixin extends Screen {
 
         moresearchbars$ruleSearchField.setMaxLength(255);
         moresearchbars$ruleSearchField.setHint(
-                Component.literal("Search...").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC)
+                Component.translatable("moresearchbars.editbox.search").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC)
         );
         this.moresearchbars$ruleSearchField.setResponder(this::moresearchbars$onSearch);
 
@@ -87,8 +89,8 @@ public abstract class EditGameRulesScreenMixin extends Screen {
     @Unique
     private void moresearchbars$onSearch(String text) {
         MoreSearchBars.setGameRuleSearchString(text);
-        if (this.ruleList != null) {
-            ((GameRuleListMixinInvoker)this.ruleList).moresearchbars$applyFilter();
+        if (this.ruleList instanceof GameRuleListMixinInvoker invoker) {
+            invoker.moresearchbars$applyFilter();
             // Reset scroll after filtering
             this.ruleList.setScrollAmount(0);
         }

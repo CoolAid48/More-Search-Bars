@@ -9,9 +9,18 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Options;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.network.chat.Component;
+import net.neoforged.fml.loading.FMLPaths;
 import net.neoforged.neoforge.client.settings.KeyModifier;
 
+import java.nio.file.Path;
+
 public class NeoForgePlatformHelper implements IPlatformHelper {
+
+    @Override
+    public Path getConfigDir() {
+
+        return FMLPaths.CONFIGDIR.get();
+    }
 
     @Override
     public boolean hasConflictingModifier(KeyMapping keybinding, KeyMapping other) {

@@ -12,9 +12,8 @@
 package coolaid.moresearchbars.neoforge;
 
 import coolaid.moresearchbars.MoreSearchBars;
-import coolaid.moresearchbars.config.SearchBarConfig;
+import coolaid.moresearchbars.config.SearchBarConfigScreen;
 import coolaid.moresearchbars.neoforge.keybindsAPI.event.ClientEventHandler;
-import me.shedaniel.autoconfig.AutoConfig;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
@@ -31,8 +30,7 @@ public final class MoreSearchBarsNeoForge {
         // Auto-Config for NeoForge's built-in mods menu
         ModLoadingContext.get().registerExtensionPoint(
                 IConfigScreenFactory.class,
-                () -> (modContainer, parentScreen) -> AutoConfig.getConfigScreen(SearchBarConfig.class, parentScreen).get()
-        );
+                () -> (modContainer, parentScreen) -> new SearchBarConfigScreen(parentScreen)        );
 
         // Run our common setup.
         MoreSearchBars.init();

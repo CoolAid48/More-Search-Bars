@@ -46,7 +46,7 @@ public abstract class JoinMultiplayerScreenMixin extends Screen {
 
         moresearchbars$serverSearchField.setMaxLength(255);
         moresearchbars$serverSearchField.setHint(
-                Component.literal("Search...").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC)
+                Component.translatable("moresearchbars.editbox.search").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC)
         );
         moresearchbars$serverSearchField.setResponder(this::filterServersBySearch);
 

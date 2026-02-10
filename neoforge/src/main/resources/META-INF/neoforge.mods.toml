@@ -16,4 +16,7 @@ Add more search bars to various UI screens
 logoFile = "assets/moresearchbars/icon.png"
 
 [[mixins]]
+config = "moresearchbars.mixins.json"
+
+[[mixins]]
 config = "moresearchbars.neoforge.mixins.json"

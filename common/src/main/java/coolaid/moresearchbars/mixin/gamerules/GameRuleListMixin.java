@@ -13,10 +13,11 @@ import java.util.List;
 import java.util.Locale;
 
 @Mixin(EditGameRulesScreen.RuleList.class)
-public abstract class GameRuleListMixin extends AbstractSelectionList<EditGameRulesScreen.RuleEntry> implements GameRuleListMixinInvoker {
+@SuppressWarnings({"rawtypes", "unchecked"})
+public abstract class GameRuleListMixin extends AbstractSelectionList implements GameRuleListMixinInvoker {
 
     @Unique
-    private final List<EditGameRulesScreen.RuleEntry> moresearchbars$allEntries = new ArrayList<>();
+    private final List<AbstractSelectionList.Entry<?>> moresearchbars$allEntries = new ArrayList<>();
 
     public GameRuleListMixin(net.minecraft.client.Minecraft minecraft, int i, int j, int k, int l) {
         super(minecraft, i, j, k, l);
@@ -36,24 +37,24 @@ public abstract class GameRuleListMixin extends AbstractSelectionList<EditGameRu
         this.clearEntries();
 
         if (query.isEmpty()) {
-            moresearchbars$allEntries.forEach(this::addEntry);
+            moresearchbars$allEntries.forEach(this::moresearchbars$addEntry);
             return;
         }
 
         // Track current category and if it has any visible rules
-        EditGameRulesScreen.CategoryRuleEntry currentCategory = null;
-        List<EditGameRulesScreen.RuleEntry> visibleRulesInCurrentCategory = new ArrayList<>();
+        AbstractSelectionList.Entry<?> currentCategory = null;
+        List<AbstractSelectionList.Entry<?>> visibleRulesInCurrentCategory = new ArrayList<>();
 
-        for (EditGameRulesScreen.RuleEntry entry : moresearchbars$allEntries) {
+        for (AbstractSelectionList.Entry<?> entry : moresearchbars$allEntries) {
             // If this is a category header, add the previous category if it had visible rules, then start tracking the new category
-            if (entry instanceof EditGameRulesScreen.CategoryRuleEntry categoryEntry) {
+            if (moresearchbars$isCategoryEntry(entry)) {
                 if (currentCategory != null && !visibleRulesInCurrentCategory.isEmpty()) {
-                    this.addEntry(currentCategory);
-                    visibleRulesInCurrentCategory.forEach(this::addEntry);
+                    this.addEntry((AbstractSelectionList.Entry) currentCategory);
+                    visibleRulesInCurrentCategory.forEach(this::moresearchbars$addEntry);
                     visibleRulesInCurrentCategory.clear();
                 }
 
-                currentCategory = categoryEntry;
+                currentCategory = entry;
                 continue;
             }
 
@@ -133,11 +134,27 @@ public abstract class GameRuleListMixin extends AbstractSelectionList<EditGameRu
 
         // Add the last category if it had visible rules
         if (currentCategory != null && !visibleRulesInCurrentCategory.isEmpty()) {
-            this.addEntry(currentCategory);
-            visibleRulesInCurrentCategory.forEach(this::addEntry);
+            this.addEntry((AbstractSelectionList.Entry) currentCategory);
+            visibleRulesInCurrentCategory.forEach(this::moresearchbars$addEntry);
         }
 
         // Reset scroll to top after filtering
         this.setScrollAmount(0);
+    }
+    
+    @Unique
+    private boolean moresearchbars$isCategoryEntry(AbstractSelectionList.Entry<?> entry) {
+        for (java.lang.reflect.Field field : entry.getClass().getDeclaredFields()) {
+            if (field.getType().equals(GameRules.Category.class) ||
+                    field.getType().getName().contains("GameRules$Category")) {
+                return true;
+            }
+        }
+        return entry.getClass().getSimpleName().toLowerCase(Locale.ROOT).contains("category");
+    }
+
+    @Unique
+    private void moresearchbars$addEntry(AbstractSelectionList.Entry<?> entry) {
+        this.addEntry((AbstractSelectionList.Entry) entry);
     }
 }

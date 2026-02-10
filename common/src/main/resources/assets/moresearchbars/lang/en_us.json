@@ -1,0 +1,18 @@
+{
+  "moresearchbars.editbox.search": "Search...",
+  "moresearchbars.config.title": "More Search Bars Config",
+  "moresearchbars.config.done": "Done",
+  "moresearchbars.config.gamerules": "Search Game Rules",
+  "moresearchbars.config.keybinds": "Search Keybinds",
+  "moresearchbars.config.multiplayer": "Search Server List",
+  "moresearchbars.config.stats": "Search Statistics",
+  "moresearchbars.config.on": "ON",
+  "moresearchbars.config.off": "OFF",
+
+  "moresearchbars.controls.reset": "Reset",
+  "moresearchbars.controls.resetAll": "Reset Keys",
+  "moresearchbars.keybinds.confirmReset": "Confirm All Keys?",
+  "moresearchbars.keybinds.showNone": "Show Unbound Keys",
+  "moresearchbars.keybinds.showAll": "Show All Keys",
+  "moresearchbars.keybinds.showConflicts": "Show Key Conflicts"
+}

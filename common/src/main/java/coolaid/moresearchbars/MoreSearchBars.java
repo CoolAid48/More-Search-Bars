@@ -11,9 +11,8 @@
 
 package coolaid.moresearchbars;
 
+import coolaid.moresearchbars.config.ConfigManager;
 import coolaid.moresearchbars.config.SearchBarConfig;
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,8 +34,7 @@ public class MoreSearchBars {
     public static void init() {
         // Write common init code here.
 
-        AutoConfig.register(SearchBarConfig.class, GsonConfigSerializer::new);
-        CONFIG = AutoConfig.getConfigHolder(SearchBarConfig.class).getConfig();
+        CONFIG = ConfigManager.load();
 
         LOGGER.info("Initializing More Search Bars!");
     }

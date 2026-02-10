@@ -28,8 +28,6 @@ repositories {
     mavenCentral()
     mavenLocal()
 
-    maven { url 'https://mvnrepository.com/artifact/me.shedaniel.cloth/cloth-config-fabric'}
-
     exclusiveContent {
         forRepository {
             maven {
@@ -62,8 +60,6 @@ dependencies {
 
     modImplementation "com.terraformersmc:modmenu:$rootProject.modmenu_version"
     include "com.terraformersmc:modmenu:$rootProject.modmenu_version"
-    modImplementation 'me.shedaniel.cloth:cloth-config-fabric:20.0.149'
-    include 'me.shedaniel.cloth:cloth-config-fabric:20.0.149'
 
     common(project(path: ':common', configuration: 'namedElements')) { transitive false }
     shadowBundle project(path: ':common', configuration: 'transformProductionFabric')

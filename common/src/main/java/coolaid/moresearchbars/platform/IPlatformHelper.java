@@ -9,7 +9,14 @@ import net.minecraft.client.Options;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.network.chat.Component;
 
+import java.nio.file.Path;
+
 public interface IPlatformHelper {
+
+    default Path getConfigDir() {
+
+        throw new IllegalStateException("Platform helper must provide config directory.");
+    }
 
     default boolean hasConflictingModifier(KeyMapping keybinding, KeyMapping other) {
 

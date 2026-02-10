@@ -1,21 +1,9 @@
 package coolaid.moresearchbars.config;
 
-import me.shedaniel.autoconfig.ConfigData;
-import me.shedaniel.autoconfig.annotation.Config;
-import me.shedaniel.autoconfig.annotation.ConfigEntry;
+    public class SearchBarConfig {
 
-@Config(name = "moresearchbars")
-public class SearchBarConfig implements ConfigData {
-
-    @ConfigEntry.Gui.Tooltip
-    public boolean enableMultiplayerSearch = true;
-
-    @ConfigEntry.Gui.Tooltip
-    public boolean enableGameRuleSearch = true;
-
-    @ConfigEntry.Gui.Tooltip
-    public boolean enableStatsSearch = true;
-
-    @ConfigEntry.Gui.Tooltip
-    public boolean enableKeybindsSearch = true;
-}
+        public boolean enableMultiplayerSearch = true;
+        public boolean enableGameRuleSearch = true;
+        public boolean enableStatsSearch = true;
+        public boolean enableKeybindsSearch = true;
+    }

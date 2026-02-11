@@ -92,32 +92,30 @@ public class NewKeyBindsList extends CustomList {
     public class CategoryEntry extends Entry implements ICategoryEntry {
 
         private final KeyMapping.Category category;
-        private final FocusableTextWidget categoryName;
+        private final Component categoryName;
 
         public CategoryEntry(KeyMapping.Category category) {
 
             this.category = category;
-            this.categoryName = new FocusableTextWidget(
-                    NewKeyBindsList.this.getRowWidth(), category.label(), NewKeyBindsList.this.minecraft.font, false, FocusableTextWidget.BackgroundFill.ON_FOCUS, 4
-            );
+            this.categoryName = category.label();
         }
 
         @Override
         public void renderContent(GuiGraphics guiGraphics, int mouseX, int mouseY, boolean hovered, float partialTicks) {
 
-            this.categoryName.setPosition(NewKeyBindsList.this.width / 2 - this.categoryName.getWidth() / 2, this.getContentBottom() - 9 - 1);
-            this.categoryName.render(guiGraphics, mouseX, mouseY, partialTicks);
+            int x = NewKeyBindsList.this.width / 2 - NewKeyBindsList.this.minecraft.font.width(this.categoryName) / 2;
+            guiGraphics.drawString(NewKeyBindsList.this.minecraft.font, this.categoryName, x, this.getContentBottom() - 9 - 1, CommonColors.WHITE);
         }
 
         public List<? extends NarratableEntry> narratables() {
 
-            return List.of(this.categoryName);
+            return List.of();
         }
 
         @Override
         public List<? extends GuiEventListener> children() {
 
-            return List.of(this.categoryName);
+            return List.of();
         }
 
         @Override
@@ -125,7 +123,7 @@ public class NewKeyBindsList extends CustomList {
 
         }
 
-        public FocusableTextWidget categoryName() {
+        public Component categoryName() {
 
             return categoryName;
         }

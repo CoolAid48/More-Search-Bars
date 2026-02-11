@@ -4,7 +4,7 @@ import coolaid.moresearchbars.MoreSearchBars;
 import coolaid.moresearchbars.util.GameRuleListMixinInvoker;
 import net.minecraft.client.gui.components.AbstractSelectionList;
 import net.minecraft.client.gui.screens.worldselection.EditGameRulesScreen;
-import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.gamerules.GameRules;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
@@ -67,7 +67,7 @@ public abstract class GameRuleListMixin extends AbstractSelectionList implements
 
             try {
                 for (java.lang.reflect.Field field : entry.getClass().getDeclaredFields()) {
-                    if (field.getType().equals(GameRules.Key.class) ||
+                    if (field.getType().equals(GameRules.class) ||
                             field.getType().getName().contains("GameRules$Key")) {
                         field.setAccessible(true);
                         Object keyObj = field.get(entry);
@@ -141,11 +141,11 @@ public abstract class GameRuleListMixin extends AbstractSelectionList implements
         // Reset scroll to top after filtering
         this.setScrollAmount(0);
     }
-    
+
     @Unique
     private boolean moresearchbars$isCategoryEntry(AbstractSelectionList.Entry<?> entry) {
         for (java.lang.reflect.Field field : entry.getClass().getDeclaredFields()) {
-            if (field.getType().equals(GameRules.Category.class) ||
+            if (field.getType().equals(GameRules.class) ||
                     field.getType().getName().contains("GameRules$Category")) {
                 return true;
             }

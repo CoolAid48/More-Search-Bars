@@ -3,7 +3,7 @@ package coolaid.moresearchbars.platform;
 import com.mojang.blaze3d.platform.InputConstants;
 import coolaid.moresearchbars.keybindsClient.NewKeyBindsScreen;
 import coolaid.moresearchbars.mixin.keybinds.AccessKeyMapping;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Options;
 import net.minecraft.client.input.KeyEvent;

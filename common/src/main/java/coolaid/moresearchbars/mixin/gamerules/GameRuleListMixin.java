@@ -3,16 +3,17 @@ package coolaid.moresearchbars.mixin.gamerules;
 import coolaid.moresearchbars.MoreSearchBars;
 import coolaid.moresearchbars.util.GameRuleListMixinInvoker;
 import net.minecraft.client.gui.components.AbstractSelectionList;
-import net.minecraft.client.gui.screens.worldselection.EditGameRulesScreen;
 import net.minecraft.world.level.gamerules.GameRules;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Unique;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-@Mixin(EditGameRulesScreen.RuleList.class)
+@Pseudo
+@Mixin(targets = {"net.minecraft.client.gui.screens.worldselection.EditGameRulesScreen$RuleList", "net.minecraft.client.gui.screens.worldselection.EditWorldScreen$RuleList"})
 @SuppressWarnings({"rawtypes", "unchecked"})
 public abstract class GameRuleListMixin extends AbstractSelectionList implements GameRuleListMixinInvoker {
 
@@ -157,4 +158,26 @@ public abstract class GameRuleListMixin extends AbstractSelectionList implements
     private void moresearchbars$addEntry(AbstractSelectionList.Entry<?> entry) {
         this.addEntry((AbstractSelectionList.Entry) entry);
     }
+
+
+    @Override
+    public int moresearchbars$getX() {
+        return this.getX();
+    }
+
+    @Override
+    public void moresearchbars$setPosition(int x, int y) {
+        this.setPosition(x, y);
+    }
+
+    @Override
+    public void moresearchbars$setHeight(int height) {
+        this.setHeight(height);
+    }
+
+    @Override
+    public void moresearchbars$setScrollAmount(double amount) {
+        this.setScrollAmount(amount);
+    }
+
 }

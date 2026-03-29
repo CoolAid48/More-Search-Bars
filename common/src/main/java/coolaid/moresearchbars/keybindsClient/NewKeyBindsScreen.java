@@ -4,13 +4,14 @@ import com.google.common.base.Suppliers;
 import coolaid.moresearchbars.Constants;
 import coolaid.moresearchbars.MoreSearchBars;
 import coolaid.moresearchbars.keybindsAPI.DisplayMode;
+import coolaid.moresearchbars.keybindsAPI.entries.ICategoryEntry;
 import coolaid.moresearchbars.mixin.keybinds.AccessKeyBindsScreen;
 import coolaid.moresearchbars.platform.Services;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.StringWidget;
@@ -108,8 +109,8 @@ public class NewKeyBindsScreen extends KeyBindsScreen {
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mxPos, int myPos, float partialTicks) {
-        super.render(guiGraphics, mxPos, myPos, partialTicks);
+    public void extractBackground(GuiGraphicsExtractor guiGraphics, int mxPos, int myPos, float partialTicks) {
+        super.extractBackground(guiGraphics, mxPos, myPos, partialTicks);
     }
 
     public Button resetButton() {
@@ -144,16 +145,36 @@ public class NewKeyBindsScreen extends KeyBindsScreen {
         if (list instanceof NewKeyBindsList) {
             extraPredicate = displayMode.getPredicate();
         }
+
+        KeyBindsList.Entry currentCategory = null;
+        boolean categoryAdded = false;
+
         for (KeyBindsList.Entry entry : list.getAllEntries()) {
+            if (entry instanceof ICategoryEntry) {
+                currentCategory = entry;
+                categoryAdded = false;
+                continue;
+            }
+
             if (extraPredicate.test(entry) && Constants.matchesKeybindSearch(entry, lastSearch)) {
+                if (currentCategory != null && !categoryAdded) {
+                    list.addEntryInternal(currentCategory);
+                    categoryAdded = true;
+                }
                 list.addEntryInternal(entry);
             }
         }
     }
 
-    @Override
-    public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
-        return super.mouseClicked(event, doubleClick);
+    void moresearchbars$clearSearchFocus() {
+        if (this.search != null && this.search.isFocused()) {
+            this.search.setFocused(false);
+        }
+    }
+
+    void moresearchbars$cancelPendingSelection() {
+        this.selectedKey = null;
+        Services.PLATFORM.cancelPendingSelection(this);
     }
 
     @Override

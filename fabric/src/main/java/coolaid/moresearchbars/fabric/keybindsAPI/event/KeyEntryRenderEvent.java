@@ -2,17 +2,17 @@ package coolaid.moresearchbars.fabric.keybindsAPI.event;
 
 import coolaid.moresearchbars.keybindsAPI.entries.IKeyEntry;
 import coolaid.moresearchbars.keybindsAPI.events.IKeyEntryRenderEvent;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 
 /**
- * RenderKeyEntryEvent is called at the top of {@link IKeyEntry#renderContent(GuiGraphics, int, int, boolean, float)}
+ * RenderKeyEntryEvent is called at the top of {@link IKeyEntry#renderContent(GuiGraphicsExtractor, int, int, boolean, float)}
  * is called, allowing mods to render additional info.
  */
 public class KeyEntryRenderEvent implements IKeyEntryRenderEvent {
 
     private final IKeyEntry entry;
 
-    private final GuiGraphics guiGraphics;
+    private final GuiGraphicsExtractor guiGraphics;
     private final int y;
     private final int x;
     private final int rowLeft;
@@ -20,7 +20,7 @@ public class KeyEntryRenderEvent implements IKeyEntryRenderEvent {
     private final boolean hovered;
     private final float partialTicks;
 
-    public KeyEntryRenderEvent(IKeyEntry entry, GuiGraphics guiGraphics, int x, int y, int rowLeft, int rowWidth, boolean hovered, float partialTicks) {
+    public KeyEntryRenderEvent(IKeyEntry entry, GuiGraphicsExtractor guiGraphics, int x, int y, int rowLeft, int rowWidth, boolean hovered, float partialTicks) {
 
         this.entry = entry;
         this.guiGraphics = guiGraphics;
@@ -37,7 +37,7 @@ public class KeyEntryRenderEvent implements IKeyEntryRenderEvent {
         return entry;
     }
 
-    public GuiGraphics getGuiGraphics() {
+    public GuiGraphicsExtractor getGuiGraphics() {
 
         return guiGraphics;
     }

@@ -11,9 +11,9 @@ import coolaid.moresearchbars.platform.Services;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.FocusableTextWidget;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
@@ -83,6 +83,20 @@ public class NewKeyBindsList extends CustomList {
         return false;
     }
 
+    private void moresearchbars$clearSearchFocus() {
+        if (this.controlsScreen instanceof NewKeyBindsScreen newScreen) {
+            newScreen.moresearchbars$clearSearchFocus();
+        }
+    }
+
+    private void moresearchbars$cancelPendingSelection() {
+        if (this.controlsScreen instanceof NewKeyBindsScreen newScreen) {
+            newScreen.moresearchbars$cancelPendingSelection();
+        } else {
+            this.controlsScreen.selectedKey = null;
+        }
+    }
+
     @Override
     public int getBottom() {
 
@@ -101,10 +115,10 @@ public class NewKeyBindsList extends CustomList {
         }
 
         @Override
-        public void renderContent(GuiGraphics guiGraphics, int mouseX, int mouseY, boolean hovered, float partialTicks) {
+        public void extractContent(GuiGraphicsExtractor graphics, int mouseX, int mouseY, boolean hovered, float partialTicks) {
 
             int x = NewKeyBindsList.this.width / 2 - NewKeyBindsList.this.minecraft.font.width(this.categoryName) / 2;
-            guiGraphics.drawString(NewKeyBindsList.this.minecraft.font, this.categoryName, x, this.getContentBottom() - 9 - 1, CommonColors.WHITE);
+            graphics.text(NewKeyBindsList.this.minecraft.font, this.categoryName, x, this.getContentBottom() - 9 - 1, CommonColors.WHITE);
         }
 
         public List<? extends NarratableEntry> narratables() {
@@ -152,6 +166,8 @@ public class NewKeyBindsList extends CustomList {
             this.key = key;
             this.keyDesc = keyDesc;
             this.btnChangeKeyBinding = Button.builder(this.keyDesc, (btn) -> {
+                        NewKeyBindsList.this.moresearchbars$clearSearchFocus();
+                        NewKeyBindsList.this.moresearchbars$cancelPendingSelection();
                         NewKeyBindsList.this.controlsScreen.selectedKey = key;
                         NewKeyBindsList.this.resetMappingAndUpdateButtons();
                     })
@@ -160,6 +176,8 @@ public class NewKeyBindsList extends CustomList {
                     .build();
 
             this.btnResetKeyBinding = Button.builder(Constants.COMPONENT_CONTROLS_RESET, btn -> {
+                        NewKeyBindsList.this.moresearchbars$clearSearchFocus();
+                        NewKeyBindsList.this.moresearchbars$cancelPendingSelection();
                         Services.PLATFORM.setToDefault(minecraft.options, key);
                         NewKeyBindsList.this.resetMappingAndUpdateButtons();
                     }).bounds(0, 0, 50, 20)
@@ -171,30 +189,48 @@ public class NewKeyBindsList extends CustomList {
         }
 
         @Override
-        public void renderContent(GuiGraphics guiGraphics, int mouseX, int mouseY, boolean hovered, float partialTicks) {
+        public void extractContent(GuiGraphicsExtractor graphics, int mouseX, int mouseY, boolean hovered, float partialTicks) {
 
-            Services.EVENT.fireKeyEntryRenderEvent(this, guiGraphics, this.getContentX(), this.getContentY(), getRowLeft(), getRowWidth(), hovered, partialTicks);
+            Services.EVENT.fireKeyEntryRenderEvent(this, graphics, this.getContentX(), this.getContentY(), getRowLeft(), getRowWidth(), hovered, partialTicks);
 
             int resetKeyX = NewKeyBindsList.this.scrollBarX() - this.btnResetKeyBinding.getWidth() - 10;
             int top = this.getContentY() - 2;
             this.btnResetKeyBinding.setPosition(resetKeyX, top);
-            this.btnResetKeyBinding.render(guiGraphics, mouseX, mouseY, partialTicks);
+            this.btnResetKeyBinding.extractRenderState(graphics, mouseX, mouseY, partialTicks);
 
             this.btnChangeKeyBinding.setPosition(resetKeyX - 5 - this.btnChangeKeyBinding.getWidth(), top);
-            this.btnChangeKeyBinding.render(guiGraphics, mouseX, mouseY, partialTicks);
-            guiGraphics.drawString(NewKeyBindsList.this.mc.font, this.keyDesc, this.getContentX(), this.getContentYMiddle() - 9 / 2, -1);
+            this.btnChangeKeyBinding.extractRenderState(graphics, mouseX, mouseY, partialTicks);
+
+            Font font = NewKeyBindsList.this.mc.font;
+            graphics.text(font, this.keyDesc, this.getContentX(), this.getContentYMiddle() - 9 / 2, CommonColors.WHITE);
 
             if(this.hasCollision) {
                 int markerWidth = 3;
                 int minX = this.btnChangeKeyBinding.getX() - 6;
-                guiGraphics.fill(minX, this.getContentY() - 1, minX + markerWidth, this.getContentBottom(), CommonColors.YELLOW);
+                graphics.fill(minX, this.getContentY() - 1, minX + markerWidth, this.getContentBottom(), CommonColors.YELLOW);
             }
         }
 
-        public List<GuiEventListener> children() {
+        @Override
+        public void renderContent(GuiGraphicsExtractor graphics, int mouseX, int mouseY, boolean hovered, float partialTicks) {
+            this.extractContent(graphics, mouseX, mouseY, hovered, partialTicks);
+        }
 
-            return Services.EVENT.fireKeyEntryListenersEvent(this)
+        public List<GuiEventListener> children() {
+            List<GuiEventListener> listeners = new ArrayList<>(2);
+            listeners.add(this.btnChangeKeyBinding);
+            listeners.add(this.btnResetKeyBinding);
+
+            List<GuiEventListener> eventListeners = Services.EVENT.fireKeyEntryListenersEvent(this)
                     .map(IKeyEntryListenersEvent::getListeners, UnaryOperator.identity());
+
+            for (GuiEventListener listener : eventListeners) {
+                if (listener != this.btnChangeKeyBinding && listener != this.btnResetKeyBinding) {
+                    listeners.add(listener);
+                }
+            }
+
+            return listeners;
         }
 
         public List<? extends NarratableEntry> narratables() {
@@ -205,6 +241,7 @@ public class NewKeyBindsList extends CustomList {
 
         @Override
         public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
+            NewKeyBindsList.this.moresearchbars$clearSearchFocus();
 
             if(Services.EVENT.fireKeyEntryMouseClickedEvent(this, event, doubleClick)
                     .map(IKeyEntryMouseClickedEvent::isHandled, UnaryOperator.identity())) {
@@ -291,7 +328,5 @@ public class NewKeyBindsList extends CustomList {
             }
 
         }
-
     }
-
 }

@@ -111,4 +111,14 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
         keybinding.setToDefault();
     }
 
+    @Override
+    public void cancelPendingSelection(NewKeyBindsScreen screen) {
+
+        AccessKeyBindsScreenNeoForge access = (AccessKeyBindsScreenNeoForge) screen;
+        access.setLastPressedKey(InputConstants.UNKNOWN);
+        access.setLastPressedModifier(InputConstants.UNKNOWN);
+        access.setIsLastKeyHeldDown(false);
+        access.setIsLastModifierHeldDown(false);
+    }
+
 }

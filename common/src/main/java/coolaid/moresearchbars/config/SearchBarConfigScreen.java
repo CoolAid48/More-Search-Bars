@@ -2,7 +2,7 @@ package coolaid.moresearchbars.config;
 
 import coolaid.moresearchbars.MoreSearchBars;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.StringWidget;
 import net.minecraft.client.gui.screens.Screen;
@@ -97,10 +97,10 @@ public class SearchBarConfigScreen extends Screen {
     }
 
     @Override
-    public void render(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
+    public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float delta) {
         // Draws background and widgets
         graphics.fillGradient(0, 0, this.width, this.height, 0xC0101010, 0xD0101010);
-        super.render(graphics, mouseX, mouseY, delta);
+        super.extractBackground(graphics, mouseX, mouseY, delta);
 
         // Screen title component
         int textWidth = this.font.width(title) + 25; // Include +25 to fit bold formatting

@@ -11,7 +11,7 @@ import coolaid.moresearchbars.neoforge.keybindsAPI.event.KeyEntryMouseClickedEve
 import coolaid.moresearchbars.neoforge.keybindsAPI.event.KeyEntryMouseReleasedEvent;
 import coolaid.moresearchbars.neoforge.keybindsAPI.event.KeyEntryRenderEvent;
 import coolaid.moresearchbars.platform.IEventHelper;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.util.Unit;
@@ -40,7 +40,7 @@ public class NeoForgeEventHandler implements IEventHelper {
     }
 
     @Override
-    public Either<IKeyEntryRenderEvent, Unit> fireKeyEntryRenderEvent(IKeyEntry entry, GuiGraphics guiGraphics, int y, int x, int rowLeft, int rowWidth, boolean hovered, float partialTicks) {
+    public Either<IKeyEntryRenderEvent, Unit> fireKeyEntryRenderEvent(IKeyEntry entry, GuiGraphicsExtractor guiGraphics, int y, int x, int rowLeft, int rowWidth, boolean hovered, float partialTicks) {
 
         return Either.left(NeoForge.EVENT_BUS.post(new KeyEntryRenderEvent(entry, guiGraphics, y, x, rowLeft, rowWidth, hovered, partialTicks)));
     }

@@ -64,4 +64,7 @@ public interface IPlatformHelper {
         return false;
     }
 
+    default void cancelPendingSelection(NewKeyBindsScreen screen) {
+    }
+
 }

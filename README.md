@@ -1,6 +1,6 @@
 # More Search Bars
 ![](https://img.shields.io/badge/Loader-Fabric/Quilt_+_NeoForge-darkslategray?style=for-the-badge)
-![](https://img.shields.io/badge/Supports_Versions-1.21.9_--_1.21.11-darkslategray?style=for-the-badge)
+![](https://img.shields.io/badge/Supports_Versions-1.21.9_--_1.21.11_|_26.1-darkslategray?style=for-the-badge)
 ![](https://img.shields.io/badge/Environments-Client-darkslategray?style=for-the-badge)
 
 ### Add more search bars to various UI screens!

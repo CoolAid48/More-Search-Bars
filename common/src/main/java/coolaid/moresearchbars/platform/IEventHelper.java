@@ -6,7 +6,7 @@ import coolaid.moresearchbars.keybindsAPI.events.IKeyEntryListenersEvent;
 import coolaid.moresearchbars.keybindsAPI.events.IKeyEntryMouseClickedEvent;
 import coolaid.moresearchbars.keybindsAPI.events.IKeyEntryMouseReleasedEvent;
 import coolaid.moresearchbars.keybindsAPI.events.IKeyEntryRenderEvent;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.util.Unit;
@@ -21,6 +21,6 @@ public interface IEventHelper {
 
     Either<IKeyEntryMouseReleasedEvent, Boolean> fireKeyEntryMouseReleasedEvent(IKeyEntry entry, MouseButtonEvent event);
 
-    Either<IKeyEntryRenderEvent, Unit> fireKeyEntryRenderEvent(IKeyEntry entry, GuiGraphics stack, int x, int y, int rowLeft, int rowWidth, boolean hovered, float partialTicks);
+    Either<IKeyEntryRenderEvent, Unit> fireKeyEntryRenderEvent(IKeyEntry entry, GuiGraphicsExtractor stack, int x, int y, int rowLeft, int rowWidth, boolean hovered, float partialTicks);
 
 }

@@ -43,14 +43,6 @@ public class SearchBarConfigScreen extends Screen {
         this.addRenderableWidget(createToggle(
                 centerX - BUTTON_WIDTH / 2,
                 startY + spacing,
-                Component.translatable("moresearchbars.config.gamerules"),
-                () -> this.config.enableGameRuleSearch,
-                value -> this.config.enableGameRuleSearch = value
-        ));
-
-        this.addRenderableWidget(createToggle(
-                centerX - BUTTON_WIDTH / 2,
-                startY + spacing * 2,
                 Component.translatable("moresearchbars.config.stats"),
                 () -> this.config.enableStatsSearch,
                 value -> this.config.enableStatsSearch = value
@@ -58,7 +50,7 @@ public class SearchBarConfigScreen extends Screen {
 
         this.addRenderableWidget(createToggle(
                 centerX - BUTTON_WIDTH / 2,
-                startY + spacing * 3,
+                startY + spacing * 2,
                 Component.translatable("moresearchbars.config.keybinds"),
                 () -> this.config.enableKeybindsSearch,
                 value -> this.config.enableKeybindsSearch = value
@@ -66,7 +58,7 @@ public class SearchBarConfigScreen extends Screen {
 
         this.addRenderableWidget(
                 Button.builder(Component.translatable("moresearchbars.config.done"), button -> this.onClose())
-                        .bounds(centerX - BUTTON_WIDTH / 2, startY + spacing * 4 + 12, BUTTON_WIDTH, BUTTON_HEIGHT)
+                        .bounds(centerX - BUTTON_WIDTH / 2, startY + spacing * 3 + 12, BUTTON_WIDTH, BUTTON_HEIGHT)
                         .build()
         );
     }
@@ -91,8 +83,8 @@ public class SearchBarConfigScreen extends Screen {
 
     private Component buildToggleLabel(Component label, boolean enabled) {
         Component value = enabled
-                ? Component.translatable("moresearchbars.config.on").withStyle(ChatFormatting.GREEN)
-                : Component.translatable("moresearchbars.config.off").withStyle(ChatFormatting.RED);
+                ? Component.translatable("moresearchbars.config.enabled").withStyle(ChatFormatting.GREEN)
+                : Component.translatable("moresearchbars.config.disabled").withStyle(ChatFormatting.RED);
         return Component.empty().append(label).append(Component.literal(": ")).append(value);
     }
 

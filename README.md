@@ -6,12 +6,11 @@
 ### Add more search bars to various UI screens!
 
 ## This mod features:
-- **New search bars in the *Server List*, *GameRules*, in-game *Statistics*, and *Keybinds* screens**
-- **Keybinds screen adds additional buttons to filter *Unbound Keys* and *Key Conflicts***
-- **Also adds a secondary confirmation button to reset all binds**
+- **New search bars in the *Server List*, *Keybinds*, and in-game *Statistics* screens**
+- **Keybinds screen adds additional buttons to *Reset All Keys* and filter *Unbound Keys* or *Key Conflicts***
 - **Searching through the server list by filtering both *Server Name* and/or *Server Address***
 - **Custom config screen to toggle individual search bars based on individual preference**
-- **Functions fully client-side with ModMenu integration for config access**
+- **Functions fully client-side with integrations for config access**
 
 #### Any bugs or issues, please make a report on [GitHub](https://github.com/CoolAid48/More-Search-Bars/issues)
 

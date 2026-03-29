@@ -26,7 +26,6 @@ public class MoreSearchBars {
 
     private static String statsSearchString = "";
     private static String serverSearchString = "";
-    private static String gameRuleSearchString = "";
 
     public static int selectedTab;
     public static boolean isSearchingServers = false;
@@ -35,11 +34,10 @@ public class MoreSearchBars {
         // Write common init code here.
 
         CONFIG = ConfigManager.load();
-
         LOGGER.info("Initializing More Search Bars!");
     }
 
-    // Stats search methods
+    // Stats and Server search methods (Keybind search methods are handled elsewhere)
     public static void setStatsSearchString(String s) {
         statsSearchString = s.toLowerCase(Locale.ROOT);
     }
@@ -48,7 +46,6 @@ public class MoreSearchBars {
         return statsSearchString;
     }
 
-    // Server search methods
     public static String getServerSearchString() {
         return serverSearchString;
     }
@@ -57,14 +54,4 @@ public class MoreSearchBars {
         serverSearchString = search;
     }
 
-    // GameRule search methods
-    public static String getGameRuleSearchString() {
-        return gameRuleSearchString;
-    }
-
-    public static void setGameRuleSearchString(String text) {
-        gameRuleSearchString = text;
-    }
-
-    // Keybind search methods are handled elsewhere
 }

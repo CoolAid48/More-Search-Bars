@@ -22,7 +22,6 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.options.controls.KeyBindsList;
 import net.minecraft.client.gui.screens.options.controls.KeyBindsScreen;
 import net.minecraft.client.input.KeyEvent;
-import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import org.lwjgl.glfw.GLFW;
@@ -37,7 +36,7 @@ public class NewKeyBindsScreen extends KeyBindsScreen {
     private DisplayMode displayMode;
     private Button buttonNone;
     private Button buttonConflicting;
-    private final DisplayableBoolean confirmingReset = new DisplayableBoolean(false, Constants.COMPONENT_OPTIONS_CONFIRM_RESET, Constants.COMPONENT_CONTROLS_RESET_ALL);
+    private final DisplayableBoolean confirmingReset = new DisplayableBoolean(false, Constants.COMPONENT_OPTIONS_CONFIRM_RESET, Constants.COMPONENT_OPTIONS_RESET_ALL);
 
 
     public NewKeyBindsScreen(Screen screen, Options settings) {

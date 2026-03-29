@@ -2,6 +2,7 @@ package coolaid.moresearchbars.mixin.keybinds;
 
 import coolaid.moresearchbars.MoreSearchBars;
 import coolaid.moresearchbars.keybindsClient.NewKeyBindsScreen;
+import coolaid.moresearchbars.platform.Services;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.options.controls.KeyBindsScreen;
@@ -20,6 +21,7 @@ public class OpenGuiMixin {
     private Screen upgradeControlScreen(Screen opened) {
         if (opened != null
                 && KeyBindsScreen.class.equals(opened.getClass())
+                && Services.PLATFORM.shouldUseCustomKeybindScreen()
                 && (MoreSearchBars.CONFIG == null || MoreSearchBars.CONFIG.enableKeybindsSearch)) {
             return new NewKeyBindsScreen(this.screen, Minecraft.getInstance().options);
         }

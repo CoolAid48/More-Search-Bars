@@ -175,7 +175,7 @@ public class NewKeyBindsList extends CustomList {
                     .createNarration(supp -> key.isUnbound() ? Component.translatable("narrator.controls.unbound", keyDesc) : Component.translatable("narrator.controls.bound", keyDesc, supp.get()))
                     .build();
 
-            this.btnResetKeyBinding = Button.builder(Constants.COMPONENT_CONTROLS_RESET, btn -> {
+            this.btnResetKeyBinding = Button.builder(Constants.COMPONENT_OPTIONS_RESET, btn -> {
                         NewKeyBindsList.this.moresearchbars$clearSearchFocus();
                         NewKeyBindsList.this.moresearchbars$cancelPendingSelection();
                         Services.PLATFORM.setToDefault(minecraft.options, key);

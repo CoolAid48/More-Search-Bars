@@ -2,17 +2,16 @@
   "moresearchbars.editbox.search": "Search...",
   "moresearchbars.config.title": "More Search Bars Config",
   "moresearchbars.config.done": "Done",
-  "moresearchbars.config.gamerules": "Search Game Rules",
-  "moresearchbars.config.keybinds": "Search Keybinds",
-  "moresearchbars.config.multiplayer": "Search Server List",
-  "moresearchbars.config.stats": "Search Statistics",
-  "moresearchbars.config.on": "ON",
-  "moresearchbars.config.off": "OFF",
+  "moresearchbars.config.keybinds": "Keybinds Search",
+  "moresearchbars.config.multiplayer": "Server List Search",
+  "moresearchbars.config.stats": "Statistics Search",
+  "moresearchbars.config.enabled": "Enabled",
+  "moresearchbars.config.disabled": "Disabled",
 
-  "moresearchbars.controls.reset": "Reset",
-  "moresearchbars.controls.resetAll": "Reset Keys",
-  "moresearchbars.keybinds.confirmReset": "Confirm All Keys?",
+  "moresearchbars.keybinds.reset": "Reset",
+  "moresearchbars.keybinds.resetAll": "Reset All Keys",
+  "moresearchbars.keybinds.confirmReset": "Confirm Reset?",
   "moresearchbars.keybinds.showNone": "Show Unbound Keys",
-  "moresearchbars.keybinds.showAll": "Show All Keys",
-  "moresearchbars.keybinds.showConflicts": "Show Key Conflicts"
+  "moresearchbars.keybinds.showConflicts": "Show Key Conflicts",
+  "moresearchbars.keybinds.showAll": "Show All Keys"
 }

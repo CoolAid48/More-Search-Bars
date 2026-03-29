@@ -32,7 +32,6 @@ public final class MoreSearchBarsNeoForge {
                 IConfigScreenFactory.class,
                 () -> (modContainer, parentScreen) -> new SearchBarConfigScreen(parentScreen)        );
 
-        // Run our common setup.
         MoreSearchBars.init();
     }
 

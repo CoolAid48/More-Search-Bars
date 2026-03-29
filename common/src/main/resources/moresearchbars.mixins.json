@@ -5,8 +5,6 @@
   "minVersion": "0.8",
   "client": [
     "TabNavigationBarMixin",
-    "gamerules.EditGameRulesScreenMixin",
-    "gamerules.GameRuleListMixin",
     "keybinds.AccessKeyBindsScreen",
     "keybinds.AccessKeyMapping",
     "keybinds.AccessOptionsSubScreen",

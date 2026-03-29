@@ -67,4 +67,9 @@ public interface IPlatformHelper {
     default void cancelPendingSelection(NewKeyBindsScreen screen) {
     }
 
+    default boolean shouldUseCustomKeybindScreen() {
+
+        return true;
+    }
+
 }

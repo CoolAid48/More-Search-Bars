@@ -103,6 +103,17 @@ public class NewKeyBindsList extends CustomList {
         return this.getY() + this.getHeight();
     }
 
+    @Override
+    public void resetMappingAndUpdateButtons() {
+
+        super.resetMappingAndUpdateButtons();
+        for (KeyBindsList.Entry entry : this.getAllEntries()) {
+            if (entry instanceof KeyEntry keyEntry) {
+                keyEntry.refreshEntry();
+            }
+        }
+    }
+
     public class CategoryEntry extends Entry implements ICategoryEntry {
 
         private final KeyMapping.Category category;
@@ -191,6 +202,7 @@ public class NewKeyBindsList extends CustomList {
         @Override
         public void extractContent(GuiGraphicsExtractor graphics, int mouseX, int mouseY, boolean hovered, float partialTicks) {
 
+            refreshEntry();
             Services.EVENT.fireKeyEntryRenderEvent(this, graphics, this.getContentX(), this.getContentY(), getRowLeft(), getRowWidth(), hovered, partialTicks);
 
             int resetKeyX = NewKeyBindsList.this.scrollBarX() - this.btnResetKeyBinding.getWidth() - 10;

@@ -47,8 +47,10 @@ public class FabricPlatformHelper implements IPlatformHelper {
     public void setKey(Options options, KeyMapping keybinding, InputConstants.Key key) {
 
         boolean handled = Events.SET_KEY_EVENT.invoker().handle(new SetKeyEvent(options, keybinding, key));
-        if(!handled) {
+        if(!handled || !keybinding.getDefaultKey().equals(key)) {
             IPlatformHelper.super.setKey(options, keybinding, key);
+        } else {
+            KeyMapping.resetMapping();
         }
         applyAmecsBoundModifiersIfPresent(keybinding);
     }
@@ -57,8 +59,10 @@ public class FabricPlatformHelper implements IPlatformHelper {
     public void setToDefault(Options options, KeyMapping keybinding) {
 
         boolean handled = Events.SET_TO_DEFAULT_EVENT.invoker().handle(new SetToDefaultEvent(options, keybinding));
-        if(!handled) {
+        if(!handled || !keybinding.isDefault()) {
             IPlatformHelper.super.setToDefault(options, keybinding);
+        } else {
+            KeyMapping.resetMapping();
         }
         resetAmecsBoundModifiersIfPresent(keybinding);
     }

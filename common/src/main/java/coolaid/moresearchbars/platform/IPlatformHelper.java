@@ -26,11 +26,13 @@ public interface IPlatformHelper {
     default void setKey(Options options, KeyMapping keybinding, InputConstants.Key key) {
 
         keybinding.setKey(key);
+        KeyMapping.resetMapping();
     }
 
     default void setToDefault(Options options, KeyMapping keybinding) {
 
         keybinding.setKey(keybinding.getDefaultKey());
+        KeyMapping.resetMapping();
     }
 
     default boolean isKeyCodeModifier(InputConstants.Key key) {

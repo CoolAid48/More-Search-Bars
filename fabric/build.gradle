@@ -78,18 +78,19 @@ loom {
     }
 }
 
-    processResources {
-        inputs.property 'version', project.version
+processResources {
+    inputs.property 'version', project.version
 
-        filesMatching('fabric.mod.json') {
-            expand version: project.version
-        }
+    filesMatching('fabric.mod.json') {
+        expand version: project.version
     }
+}
 
-    shadowJar {
-        configurations = [project.configurations.shadowBundle]
-        archiveClassifier = "" // Removes the '-all' suffix so it's the main jar
-    }
+shadowJar {
+    configurations = [project.configurations.shadowBundle]
+    archiveClassifier = ""
+    mergeServiceFiles()
+}
 
-// Ensure the standard jar task is replaced by the shadowJar
-    tasks.build.dependsOn shadowJar
+// Ensure the standard build outputs the distributable shaded jar.
+tasks.build.dependsOn shadowJar

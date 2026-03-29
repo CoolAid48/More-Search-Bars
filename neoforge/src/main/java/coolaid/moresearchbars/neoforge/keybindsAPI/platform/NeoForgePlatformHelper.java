@@ -99,6 +99,7 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
                 return true;
             }
         }
+        KeyMapping.resetMapping();
         screen.selectedKey = null;
         screen.lastKeySelection = Util.getMillis();
         screen.getKeyBindsList().resetMappingAndUpdateButtons();
@@ -109,6 +110,7 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
     public void setToDefault(Options options, KeyMapping keybinding) {
 
         keybinding.setToDefault();
+        KeyMapping.resetMapping();
     }
 
     @Override

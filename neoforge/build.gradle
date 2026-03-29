@@ -50,6 +50,7 @@ processResources {
 shadowJar {
     configurations = [project.configurations.shadowBundle]
     archiveClassifier = ""
+    mergeServiceFiles()
 }
 
 tasks.build.dependsOn shadowJar

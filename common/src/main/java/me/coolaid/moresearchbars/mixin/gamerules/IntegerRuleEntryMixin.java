@@ -4,7 +4,7 @@ import me.coolaid.moresearchbars.util.GameRuleSearchAccess;
 import net.minecraft.client.gui.screens.worldselection.EditGameRulesScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
-import net.minecraft.world.level.gamerules.GameRule;
+import net.minecraft.world.level.GameRules;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -16,9 +16,7 @@ import java.util.List;
 public abstract class IntegerRuleEntryMixin {
 
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void moresearchbars$captureRuleName(EditGameRulesScreen screen, Component label, List<FormattedCharSequence> tooltip, String name, GameRule<Integer> rule, CallbackInfo ci) {
+    private void moresearchbars$captureRuleName(EditGameRulesScreen screen, Component label, List<FormattedCharSequence> tooltip, String name, GameRules.IntegerValue rule, CallbackInfo ci) {
         ((GameRuleSearchAccess) this).moresearchbars$appendGameRuleSearchText(name);
-        ((GameRuleSearchAccess) this).moresearchbars$appendGameRuleSearchText(rule.id());
-        ((GameRuleSearchAccess) this).moresearchbars$appendGameRuleSearchText(rule.getDescriptionId());
     }
 }

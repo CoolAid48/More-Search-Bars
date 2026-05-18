@@ -3,8 +3,11 @@ package me.coolaid.moresearchbars.mixin.gamerules;
 import me.coolaid.moresearchbars.MoreSearchBars;
 import me.coolaid.moresearchbars.util.GameRuleSearchAccess;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.gui.components.StringWidget;
 import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
+import net.minecraft.client.gui.layouts.LinearLayout;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.worldselection.EditGameRulesScreen;
 import net.minecraft.network.chat.Component;
@@ -14,6 +17,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(EditGameRulesScreen.class)
@@ -35,19 +39,20 @@ public abstract class EditGameRulesScreenMixin extends Screen {
 
     @Inject(method = "init", at = @At("HEAD"))
     private void moresearchbars$clearSearch(CallbackInfo ci) {
+        moresearchbars$gameRuleSearchField = null;
         MoreSearchBars.setGameRulesSearchString("");
     }
 
-    @Inject(
+    @Redirect(
             method = "init",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/layouts/HeaderAndFooterLayout;addTitleHeader(Lnet/minecraft/network/chat/Component;Lnet/minecraft/client/gui/Font;)V",
-                    shift = At.Shift.AFTER
+                    target = "Lnet/minecraft/client/gui/layouts/HeaderAndFooterLayout;addTitleHeader(Lnet/minecraft/network/chat/Component;Lnet/minecraft/client/gui/Font;)V"
             )
     )
-    private void moresearchbars$addSearchField(CallbackInfo ci) {
+    private void moresearchbars$addTitleAndSearchField(HeaderAndFooterLayout layout, Component title, Font font) {
         if (!moresearchbars$isGameRulesSearchEnabled()) {
+            layout.addTitleHeader(title, font);
             return;
         }
 
@@ -65,10 +70,13 @@ public abstract class EditGameRulesScreenMixin extends Screen {
                 .withStyle(ChatFormatting.ITALIC));
         moresearchbars$gameRuleSearchField.setResponder(this::moresearchbars$filterGameRules);
 
-        this.layout.setHeaderHeight(58);
-        this.layout.addToHeader(moresearchbars$gameRuleSearchField, settings -> settings
-                .alignHorizontallyCenter()
-                .paddingTop(4));
+        LinearLayout titleAndSearch = LinearLayout.vertical().spacing(4);
+        titleAndSearch.defaultCellSetting().alignHorizontallyCenter();
+        titleAndSearch.addChild(new StringWidget(title, font));
+        titleAndSearch.addChild(moresearchbars$gameRuleSearchField);
+
+        layout.setHeaderHeight(58);
+        layout.addToHeader(titleAndSearch);
     }
 
     @Inject(method = "init", at = @At("TAIL"))

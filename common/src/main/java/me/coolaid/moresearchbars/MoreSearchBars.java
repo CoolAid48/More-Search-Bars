@@ -24,7 +24,6 @@ public class MoreSearchBars {
 
     private static String statsSearchString = "";
     private static String serverSearchString = "";
-    private static String gameRulesSearchString = "";
 
     public static int selectedTab;
     public static boolean isSearchingServers = false;
@@ -51,14 +50,6 @@ public class MoreSearchBars {
 
     public static void setServerSearchString(String search) {
         serverSearchString = Constants.normalizeSearchText(search);
-    }
-
-    public static String getGameRulesSearchString() {
-        return gameRulesSearchString;
-    }
-
-    public static void setGameRulesSearchString(String search) {
-        gameRulesSearchString = Constants.normalizeSearchText(search);
     }
 
 }

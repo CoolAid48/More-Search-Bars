@@ -1,16 +1,10 @@
 {
   "required": true,
   "package": "me.coolaid.moresearchbars.mixin",
-  "compatibilityLevel": "JAVA_21",
+  "compatibilityLevel": "JAVA_25",
   "minVersion": "0.8",
   "client": [
     "TabNavigationBarMixin",
-    "gamerules.BooleanRuleEntryMixin",
-    "gamerules.CategoryRuleEntryMixin",
-    "gamerules.EditGameRulesScreenMixin",
-    "gamerules.GameRuleEntryMixin",
-    "gamerules.GameRuleListMixin",
-    "gamerules.IntegerRuleEntryMixin",
     "keybinds.AccessKeyBindsScreen",
     "keybinds.AccessKeyMapping",
     "keybinds.AccessOptionsSubScreen",

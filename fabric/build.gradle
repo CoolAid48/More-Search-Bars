@@ -1,5 +1,5 @@
 plugins {
-    id 'com.gradleup.shadow'
+    id "com.gradleup.shadow" version "9.2.2"
 }
 
 architectury {
@@ -55,14 +55,14 @@ repositories {
 }
 
 dependencies {
-    modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
+    implementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
+    implementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
 
-    modImplementation "com.terraformersmc:modmenu:$rootProject.modmenu_version"
+    implementation "com.terraformersmc:modmenu:$rootProject.modmenu_version"
     include "com.terraformersmc:modmenu:$rootProject.modmenu_version"
 
-    common(project(path: ':common', configuration: 'namedElements')) { transitive false }
-    shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
+    common(project(path: ":common")) { transitive false }
+    shadowBundle(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
 }
 
 loom {
@@ -74,24 +74,20 @@ loom {
             validateAccessWidener.run()
         }
     }
-    mixin {
-        defaultRefmapName.set("moresearchbars.refmap.json")
-    }
+}
 
-    processResources {
-        inputs.property 'version', project.version
+processResources {
+    inputs.property 'version', project.version
 
-        filesMatching('fabric.mod.json') {
-            expand version: project.version
-        }
-    }
-
-    shadowJar {
-        configurations = [project.configurations.shadowBundle]
-        archiveClassifier = 'dev-shadow'
-    }
-
-    remapJar {
-        input.set shadowJar.archiveFile
+    filesMatching('fabric.mod.json') {
+        expand version: project.version
     }
 }
+
+shadowJar {
+    configurations = [project.configurations.shadowBundle]
+    archiveClassifier = "" // Removes the '-all' suffix so it's the main jar
+}
+
+// Ensure the standard jar task is replaced by the shadowJar
+tasks.build.dependsOn shadowJar

@@ -9,7 +9,7 @@ import me.coolaid.moresearchbars.keybindsAPI.events.IKeyEntryMouseReleasedEvent;
 import me.coolaid.moresearchbars.keybindsAPI.events.IKeyEntryRenderEvent;
 import me.coolaid.moresearchbars.platform.IEventHelper;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.util.Unit;
@@ -49,7 +49,7 @@ public class FabricEventHandler implements IEventHelper {
     }
 
     @Override
-    public Either<IKeyEntryRenderEvent, Unit> fireKeyEntryRenderEvent(IKeyEntry entry, GuiGraphics guiGraphics, int x, int y, int rowLeft, int rowWidth, boolean hovered, float partialTicks) {
+    public Either<IKeyEntryRenderEvent, Unit> fireKeyEntryRenderEvent(IKeyEntry entry, GuiGraphicsExtractor guiGraphics, int x, int y, int rowLeft, int rowWidth, boolean hovered, float partialTicks) {
 
         if(FabricLoader.getInstance().isModLoaded("fabric")) {
             return Either.right(Events.KEY_ENTRY_RENDER_EVENT.invoker()

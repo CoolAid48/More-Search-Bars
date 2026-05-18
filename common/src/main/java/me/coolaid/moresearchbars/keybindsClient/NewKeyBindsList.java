@@ -12,7 +12,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -126,10 +126,10 @@ public class NewKeyBindsList extends CustomList {
         }
 
         @Override
-        public void renderContent(GuiGraphics graphics, int mouseX, int mouseY, boolean hovered, float partialTicks) {
+        public void extractContent(GuiGraphicsExtractor graphics, int mouseX, int mouseY, boolean hovered, float partialTicks) {
 
             int x = NewKeyBindsList.this.width / 2 - NewKeyBindsList.this.minecraft.font.width(this.categoryName) / 2;
-            graphics.drawString(NewKeyBindsList.this.minecraft.font, this.categoryName, x, this.getContentBottom() - 9 - 1, CommonColors.WHITE);
+            graphics.text(NewKeyBindsList.this.minecraft.font, this.categoryName, x, this.getContentBottom() - 9 - 1, CommonColors.WHITE);
         }
 
         public List<? extends NarratableEntry> narratables() {
@@ -200,7 +200,7 @@ public class NewKeyBindsList extends CustomList {
         }
 
         @Override
-        public void renderContent(GuiGraphics graphics, int mouseX, int mouseY, boolean hovered, float partialTicks) {
+        public void extractContent(GuiGraphicsExtractor graphics, int mouseX, int mouseY, boolean hovered, float partialTicks) {
 
             refreshEntry();
             Services.EVENT.fireKeyEntryRenderEvent(this, graphics, this.getContentX(), this.getContentY(), getRowLeft(), getRowWidth(), hovered, partialTicks);
@@ -208,13 +208,13 @@ public class NewKeyBindsList extends CustomList {
             int resetKeyX = NewKeyBindsList.this.scrollBarX() - this.btnResetKeyBinding.getWidth() - 10;
             int top = this.getContentY() - 2;
             this.btnResetKeyBinding.setPosition(resetKeyX, top);
-            this.btnResetKeyBinding.render(graphics, mouseX, mouseY, partialTicks);
+            this.btnResetKeyBinding.extractRenderState(graphics, mouseX, mouseY, partialTicks);
 
             this.btnChangeKeyBinding.setPosition(resetKeyX - 5 - this.btnChangeKeyBinding.getWidth(), top);
-            this.btnChangeKeyBinding.render(graphics, mouseX, mouseY, partialTicks);
+            this.btnChangeKeyBinding.extractRenderState(graphics, mouseX, mouseY, partialTicks);
 
             Font font = NewKeyBindsList.this.mc.font;
-            graphics.drawString(font, this.keyDesc, this.getContentX(), this.getContentYMiddle() - 9 / 2, CommonColors.WHITE);
+            graphics.text(font, this.keyDesc, this.getContentX(), this.getContentYMiddle() - 9 / 2, CommonColors.WHITE);
 
             if(this.hasCollision) {
                 int markerWidth = 3;

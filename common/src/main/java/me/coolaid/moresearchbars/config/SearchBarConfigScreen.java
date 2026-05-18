@@ -2,7 +2,7 @@ package me.coolaid.moresearchbars.config;
 
 import me.coolaid.moresearchbars.MoreSearchBars;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.StringWidget;
 import net.minecraft.client.gui.screens.Screen;
@@ -61,17 +61,9 @@ public class SearchBarConfigScreen extends Screen {
                 value -> this.config.enableMultiplayerSearch = value
         ));
 
-        this.addRenderableWidget(createToggle(
-                centerX - BUTTON_WIDTH / 2,
-                startY + spacing * 3,
-                Component.translatable("moresearchbars.config.gamerules"),
-                () -> this.config.enableGameRulesSearch,
-                value -> this.config.enableGameRulesSearch = value
-        ));
-
         this.addRenderableWidget(
                 Button.builder(Component.translatable("moresearchbars.config.done"), button -> this.onClose())
-                        .bounds(centerX - BUTTON_WIDTH / 2, startY + spacing * 4 + 12, BUTTON_WIDTH, BUTTON_HEIGHT)
+                        .bounds(centerX - BUTTON_WIDTH / 2, startY + spacing * 3 + 12, BUTTON_WIDTH, BUTTON_HEIGHT)
                         .build()
         );
     }
@@ -102,9 +94,9 @@ public class SearchBarConfigScreen extends Screen {
     }
 
     @Override
-    public void render(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
+    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float delta) {
         // Draws background and widgets
         graphics.fillGradient(0, 0, this.width, this.height, 0xC0101010, 0xD0101010);
-        super.render(graphics, mouseX, mouseY, delta);
+        super.extractRenderState(graphics, mouseX, mouseY, delta);
     }
 }

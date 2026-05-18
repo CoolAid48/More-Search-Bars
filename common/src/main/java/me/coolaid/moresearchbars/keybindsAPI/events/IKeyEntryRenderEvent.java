@@ -1,13 +1,13 @@
 package me.coolaid.moresearchbars.keybindsAPI.events;
 
 import me.coolaid.moresearchbars.keybindsAPI.entries.IKeyEntry;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 
 public interface IKeyEntryRenderEvent {
 
     IKeyEntry getEntry();
 
-    GuiGraphics getGuiGraphics();
+    GuiGraphicsExtractor getGuiGraphics();
 
     int getY();
 

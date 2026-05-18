@@ -1,0 +1,24 @@
+package me.coolaid.moresearchbars.mixin.gamerules;
+
+import me.coolaid.moresearchbars.util.GameRuleSearchAccess;
+import net.minecraft.client.gui.screens.worldselection.EditGameRulesScreen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.util.FormattedCharSequence;
+import net.minecraft.world.level.gamerules.GameRule;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.List;
+
+@Mixin(EditGameRulesScreen.IntegerRuleEntry.class)
+public abstract class IntegerRuleEntryMixin {
+
+    @Inject(method = "<init>", at = @At("TAIL"))
+    private void moresearchbars$captureRuleName(EditGameRulesScreen screen, Component label, List<FormattedCharSequence> tooltip, String name, GameRule<Integer> rule, CallbackInfo ci) {
+        ((GameRuleSearchAccess) this).moresearchbars$appendGameRuleSearchText(name);
+        ((GameRuleSearchAccess) this).moresearchbars$appendGameRuleSearchText(rule.id());
+        ((GameRuleSearchAccess) this).moresearchbars$appendGameRuleSearchText(rule.getDescriptionId());
+    }
+}

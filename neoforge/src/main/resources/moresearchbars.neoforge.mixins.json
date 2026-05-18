@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "coolaid.moresearchbars.neoforge.mixin",
+  "package": "me.coolaid.moresearchbars.neoforge.mixin",
   "compatibilityLevel": "JAVA_21",
   "minVersion": "0.8",
   "client": [

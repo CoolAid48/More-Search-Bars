@@ -1,0 +1,32 @@
+package me.coolaid.moresearchbars.mixin.stats;
+
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import me.coolaid.moresearchbars.MoreSearchBars;
+import me.coolaid.moresearchbars.util.INamedStatEntry;
+import net.minecraft.client.gui.components.AbstractSelectionList;
+import net.minecraft.client.gui.screens.achievement.StatsScreen;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+
+@Mixin(targets = "net.minecraft.client.gui.screens.achievement.StatsScreen$GeneralStatisticsList")
+public class GeneralStatisticsListMixin {
+
+    @WrapOperation(
+            method = "<init>",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/client/gui/screens/achievement/StatsScreen$GeneralStatisticsList;addEntry(Lnet/minecraft/client/gui/components/AbstractSelectionList$Entry;)I"
+            )
+    )
+    private int wrapAddEntry(
+            StatsScreen.GeneralStatisticsList instance,
+            AbstractSelectionList.Entry<?> entry,
+            Operation<Integer> original
+    ) {
+        if (((INamedStatEntry) entry).moresearchbars$matchesSelection(MoreSearchBars.getStatsSearchString())) {
+            return original.call(instance, entry);
+        }
+        return 0; // Ignored
+    }
+}

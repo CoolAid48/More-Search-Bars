@@ -1,0 +1,64 @@
+/*
+ * DISCLAIMER & ATTRIBUTION
+ *
+ * This mod heavily adapts and modifies code and behavior from jaredlll08's "Controlling" mod,
+ * which is under the MIT License.
+ *
+ * Original copyright and license notices are preserved where applicable.
+ * This project is not affiliated with or endorsed by the original authors
+ * All modifications are the responsibility of this project.
+ */
+
+package me.coolaid.moresearchbars;
+
+import me.coolaid.moresearchbars.config.ConfigManager;
+import me.coolaid.moresearchbars.config.SearchBarConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class MoreSearchBars {
+
+    public static final String MOD_ID = "moresearchbars";
+    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+    public static SearchBarConfig CONFIG;
+
+    private static String statsSearchString = "";
+    private static String serverSearchString = "";
+    private static String gameRulesSearchString = "";
+
+    public static int selectedTab;
+    public static boolean isSearchingServers = false;
+
+    public static void init() {
+        // Write common init code here.
+
+        CONFIG = ConfigManager.load();
+        LOGGER.info("Initializing More Search Bars!");
+    }
+
+    // Stats and Server search methods (Keybind search methods are handled elsewhere)
+    public static void setStatsSearchString(String s) {
+        statsSearchString = Constants.normalizeSearchText(s);
+    }
+
+    public static String getStatsSearchString() {
+        return statsSearchString;
+    }
+
+    public static String getServerSearchString() {
+        return serverSearchString;
+    }
+
+    public static void setServerSearchString(String search) {
+        serverSearchString = Constants.normalizeSearchText(search);
+    }
+
+    public static String getGameRulesSearchString() {
+        return gameRulesSearchString;
+    }
+
+    public static void setGameRulesSearchString(String search) {
+        gameRulesSearchString = Constants.normalizeSearchText(search);
+    }
+
+}

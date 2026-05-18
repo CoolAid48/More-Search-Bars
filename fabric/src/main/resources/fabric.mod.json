@@ -17,18 +17,18 @@
   "environment": "client",
   "entrypoints": {
     "client": [
-      "coolaid.moresearchbars.fabric.MoreSearchBarsFabricClient"
+      "me.coolaid.moresearchbars.fabric.MoreSearchBarsFabricClient"
     ],
     "modmenu": [
-      "coolaid.moresearchbars.fabric.compat.ModMenu"
+      "me.coolaid.moresearchbars.fabric.compat.ModMenu"
     ]
   },
   "mixins": [
     "moresearchbars.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.18.4",
-    "minecraft": "~26.1",
+    "fabricloader": ">=0.18.1",
+    "minecraft": "~1.21.11",
     "fabric-api": "*"
   },
   "custom": {
